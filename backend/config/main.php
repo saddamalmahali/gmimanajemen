@@ -11,7 +11,17 @@ return [
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
-    'modules' => [],
+    'modules' => [
+        'preferences' => [
+            'class' => 'app\modules\preferences\Module',
+        ],
+        'produksi' => [
+            'class' => 'app\modules\produksi\Module',
+        ],
+        'gudang' => [
+            'class' => 'app\modules\gudang\Module',
+        ],
+    ],
     'components' => [
         'user' => [
             'identityClass' => 'common\models\User',

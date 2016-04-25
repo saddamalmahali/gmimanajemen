@@ -30,6 +30,18 @@
             [
                 'options' => ['class' => 'sidebar-menu'],
                 'items' => [
+                    ['label' => 'Preferences', 'options' => ['class' => 'header']],
+                    ['label' => 'Satuan', 'icon' => 'fa fa-file-code-o', 'url' => ['/preferences/satuan']],
+
+
+                    ['label' => 'Bagian Produksi', 'options' => ['class' => 'header']],
+                    ['label' => 'Dashboard', 'icon' => 'fa fa-file-code-o', 'url' => ['/produksi']],
+
+                    ['label' => 'Gudang', 'options' => ['class' => 'header']],
+                    ['label' => 'Master Data', 'icon' => 'fa fa-file-code-o', 'items' => [
+                        ['label' => 'Kategori', 'icon' => 'fa fa-folder-o', 'url' => ['/gudang/kategori']],
+                    ]],
+
                     ['label' => 'Menu Yii2', 'options' => ['class' => 'header']],
                     ['label' => 'Gii', 'icon' => 'fa fa-file-code-o', 'url' => ['/gii']],
                     ['label' => 'Debug', 'icon' => 'fa fa-dashboard', 'url' => ['/debug']],
