@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\preferences\models;
+namespace app\modules\gudang\models;
 
 use Yii;
 
@@ -13,7 +13,6 @@ use Yii;
  * @property string $keterangan
  *
  * @property Barang[] $barangs
- * @property KonversiSatuan[] $konversiSatuans
  */
 class Satuan extends \yii\db\ActiveRecord
 {
@@ -57,13 +56,5 @@ class Satuan extends \yii\db\ActiveRecord
     public function getBarangs()
     {
         return $this->hasMany(Barang::className(), ['id_satuan' => 'id_satuan']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getKonversiSatuans()
-    {
-        return $this->hasMany(KonversiSatuan::className(), ['satuan' => 'id_satuan']);
     }
 }

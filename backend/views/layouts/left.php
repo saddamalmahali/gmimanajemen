@@ -31,15 +31,21 @@
                 'options' => ['class' => 'sidebar-menu'],
                 'items' => [
                     ['label' => 'Preferences', 'options' => ['class' => 'header']],
-                    ['label' => 'Satuan', 'icon' => 'fa fa-file-code-o', 'url' => ['/preferences/satuan']],
+                    ['label' => 'Satuan', 'icon' => 'fa fa-gift', 'url' => ['/preferences/satuan']],
+                    ['label' => 'Konversi Satuan', 'icon' => 'fa fa-balance-scale', 'url' => ['/preferences/konversi-satuan']],
 
 
                     ['label' => 'Bagian Produksi', 'options' => ['class' => 'header']],
-                    ['label' => 'Dashboard', 'icon' => 'fa fa-file-code-o', 'url' => ['/produksi']],
+                    ['label' => 'Dashboard', 'icon' => 'fa fa-desktop', 'url' => ['/produksi']],
+                    ['label' => 'Transaksi', 'items' => [
+                        ['label' => 'Supplier', 'icon' => 'fa fa-street-view', 'url' => ['/produksi/supplier']],
+                        ['label' => 'Pembelian', 'icon' => 'fa fa-shopping-bag', 'url' => ['/produksi/pembelian']],
+                    ]],
 
                     ['label' => 'Gudang', 'options' => ['class' => 'header']],
                     ['label' => 'Master Data', 'icon' => 'fa fa-file-code-o', 'items' => [
                         ['label' => 'Kategori', 'icon' => 'fa fa-folder-o', 'url' => ['/gudang/kategori']],
+                        ['label' => 'Barang', 'icon' => 'fa fa-archive', 'url' => ['/gudang/barang']],
                     ]],
 
                     ['label' => 'Menu Yii2', 'options' => ['class' => 'header']],

@@ -20,7 +20,12 @@
         "yiisoft/yii2-swiftmailer": "*",
         "kartik-v/yii2-widgets": "*",
         "dmstr/yii2-adminlte-asset": "2.*",
-        "kartik-v/yii2-grid": "@dev"
+        "kartik-v/yii2-grid": "@dev",
+        "kartik-v/yii2-tabs-x": "*",
+        "kartik-v/yii2-detail-view": "*",
+        "kartik-v/yii2-dynagrid": "@dev",
+        "kartik-v/yii2-mpdf": "*",
+        "wbraganca/yii2-dynamicform": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
