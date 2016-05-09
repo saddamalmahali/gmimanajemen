@@ -1,22 +1,24 @@
 <?php
 
 use yii\helpers\Html;
-//use yii\grid\GridView;
 use kartik\grid\GridView;
+use yii\helpers\Url;
+use yii\bootstrap\Modal;
+use kartik\popover\PopoverX;
 
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\modules\produksi\models\PembelianSearch */
+/* @var $searchModel app\modules\gudang\models\MasukBarangSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Daftar Pembelian';
+$this->title = 'Daftar Masuk Barang';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="pembelian-index">
+<div class="masuk-barang-index">
 
     
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+    
     
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -34,25 +36,31 @@ $this->params['breadcrumbs'][] = $this->title;
             'heading'=>'<center><b>'.Html::encode($this->title).'</b></center>',
         ],
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            //'id_pembelian',
+            ['class' => 'kartik\grid\SerialColumn'],
+            
+            //'id_masuk',
+            'kode_masuk',
             [
-                'attribute'=>'kode_pembelian',
+                'attribute'=>'id_pembelian',
+                'label'=>'Kode Pembelian',
                 'format'=>'raw',
-                'hAlign'=>GridView::ALIGN_CENTER,
-                'value'=> function($data){
-                    return $data->kode_pembelian;
-                }
-            ],//'kode_pembelian',
-            'jenis_pembelian',
-            'tanggal',
-            'kode_supplier',
+                'value'=>function($model){
 
-            [
-                'class' => 'yii\grid\ActionColumn',
-                'template'=>'{view} {delete}'
+                    $pembelian = $model->getIdPembelian()->one();
+                    //$url = Url::to(['/produksi/penjualan/view','id'=>$penjualan->id_penjualan]);
+                    return $pembelian->id_pembelian;
+                }
             ],
+            'id_pembelian',
+            'tanggal_masuk',
+            'keterangan',
+
+            ['class' => 'kartik\grid\ActionColumn'],
         ],
     ]); ?>
 </div>
+
+<?php 
+
+    
+?>

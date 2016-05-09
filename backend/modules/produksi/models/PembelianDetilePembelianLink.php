@@ -54,6 +54,8 @@ class PembelianDetilePembelianLink extends \yii\db\ActiveRecord
         return $this->hasOne(DetilePembelian::className(), ['id_detile_pembelian' => 'id_detile_pembelian']);
     }
 
+    
+
     /**
      * @return \yii\db\ActiveQuery
      */

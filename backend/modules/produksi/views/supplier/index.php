@@ -25,8 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     //'id_supplier',
                     'kode',
-                    'nama',
-                    
+                    'nama',                    
                     'alamat',
                     'phone',
                     // 'email:email',
@@ -37,6 +36,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]); ?>
         </div>
+
+        
     </div>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 

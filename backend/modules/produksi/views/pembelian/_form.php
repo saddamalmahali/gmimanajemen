@@ -80,14 +80,14 @@ use wbraganca\dynamicform\DynamicFormWidget;
                         <table class='container-items table table-bordered'>
                         	<thead>
                         		<tr>
-                        			<th>Nama Barang</th>
+                                    <th>Kode Barang</th>
                         			<th>Kuantitas</th>
                         			<th>Harga</th>
                         		</tr>
                         	</thead>
                         	<tbody>
                         		<tr class='item'>
-                        			<td><?= $form->field($detilePembelian, "[{$i}]nama_barang")->widget(Select2::classname(), [
+                        			<td><?= $form->field($detilePembelian, "[{$i}]kode_barang")->widget(Select2::classname(), [
                                             'data' => $listBarang,
                                             'options' => ['placeholder' => 'Pilih Barang'],
                                             'pluginOptions' => [
@@ -95,6 +95,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                             ],
                                         ])->label(false) ?>
                                     </td>
+                                    
                         			<td><?= $form->field($detilePembelian, "[{$i}]kuantitas")->textInput(['maxlength' => true])->label(false) ?></td>
                         			<td><?= $form->field($detilePembelian, "[{$i}]harga")->textInput(['maxlength' => true])->label(false) ?></td>
                         			<td><button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button></td>
@@ -117,3 +118,10 @@ use wbraganca\dynamicform\DynamicFormWidget;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php 
+    $this->registerJs("
+
+
+        ");
+?>

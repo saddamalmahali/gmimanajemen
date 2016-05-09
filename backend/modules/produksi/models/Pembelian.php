@@ -4,8 +4,8 @@ namespace app\modules\produksi\models;
 
 use Yii;
 use app\modules\produksi\models\Supplier;
-use app\modules\gudang\models\Barang;
 use yii\helpers\ArrayHelper;
+use app\modules\gudang\models\Barang;
 
 /**
  * This is the model class for table "pembelian".
@@ -16,14 +16,17 @@ use yii\helpers\ArrayHelper;
  * @property string $tanggal
  * @property string $kode_supplier
  *
+ * @property DetilePembelian[] $detilePembelians
  * @property Supplier $kodeSupplier
- * @property PembelianDetilePembelianLink[] $pembelianDetilePembelianLinks
  */
 class Pembelian extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
+
+    
+
     public static function tableName()
     {
         return 'pembelian';
@@ -37,10 +40,11 @@ class Pembelian extends \yii\db\ActiveRecord
         return [
             [['kode_pembelian', 'jenis_pembelian', 'tanggal', 'kode_supplier'], 'required'],
             [['jenis_pembelian'], 'string'],
-            [['tanggal'], 'safe'],
+            [['tanggal'], 'safe'],            
             [['kode_pembelian'], 'string', 'max' => 45],
             [['kode_supplier'], 'string', 'max' => 50],
             [['kode_supplier'], 'exist', 'skipOnError' => true, 'targetClass' => Supplier::className(), 'targetAttribute' => ['kode_supplier' => 'kode']],
+            
         ];
     }
 
@@ -55,7 +59,31 @@ class Pembelian extends \yii\db\ActiveRecord
             'jenis_pembelian' => 'Jenis Pembelian',
             'tanggal' => 'Tanggal',
             'kode_supplier' => 'Kode Supplier',
+            'kode_barang' => 'Kode Barang',
         ];
+    }
+
+    public function getListSupplier(){
+        $list_supplier = Supplier::find()->all();
+
+        return ArrayHelper::map($list_supplier, 'kode', 'kode');
+
+    }
+
+    
+
+    public function getListBarang(){
+        $list_barang = Barang::find()->all();
+
+        return ArrayHelper::map($list_barang, 'kode_barang', 'nama_barang');
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDetilePembelians()
+    {
+        return $this->hasMany(DetilePembelian::className(), ['id_pembelian' => 'id_pembelian']);
     }
 
     /**
@@ -66,23 +94,5 @@ class Pembelian extends \yii\db\ActiveRecord
         return $this->hasOne(Supplier::className(), ['kode' => 'kode_supplier']);
     }
 
-    public function getListBarang(){
-        $modelBarang = Barang::find()->all();
-
-        return ArrayHelper::map($modelBarang,'nama_barang','nama_barang');
-    }
-
-    public function getListSupplier(){
-
-        $list = Supplier::find()->all();
-        return ArrayHelper::map($list, 'kode', 'nama');
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getPembelianDetilePembelianLinks()
-    {
-        return $this->hasMany(PembelianDetilePembelianLink::className(), ['id_pembelian' => 'id_pembelian']);
-    }
+    
 }

@@ -47,6 +47,11 @@
                         ['label' => 'Kategori', 'icon' => 'fa fa-folder-o', 'url' => ['/gudang/kategori']],
                         ['label' => 'Barang', 'icon' => 'fa fa-archive', 'url' => ['/gudang/barang']],
                     ]],
+                    ['label' => 'Keluar/Masuk Barang', 'icon' => 'fa fa-file-code-o', 'items' => [
+                        ['label' => 'Penerimaan Barang', 'icon' => 'fa fa-download', 'url' => ['#']],
+                        ['label' => 'Keluar Barang', 'icon' => 'fa fa-external-link', 'url' => ['#']],
+                    ]],
+
 
                     ['label' => 'Menu Yii2', 'options' => ['class' => 'header']],
                     ['label' => 'Gii', 'icon' => 'fa fa-file-code-o', 'url' => ['/gii']],

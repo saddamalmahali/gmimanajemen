@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 01 Mei 2016 pada 15.20
+-- Generation Time: 09 Mei 2016 pada 12.03
 -- Versi Server: 5.6.21
 -- PHP Version: 5.5.19
 
@@ -53,20 +53,21 @@ CREATE TABLE IF NOT EXISTS `detile_pembelian` (
 `id_detile_pembelian` int(11) NOT NULL,
   `nama_barang` varchar(255) NOT NULL,
   `kuantitas` varchar(255) NOT NULL,
-  `harga` varchar(45) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+  `harga` varchar(45) NOT NULL,
+  `id_pembelian` int(11) NOT NULL,
+  `kode_barang` varchar(10) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `detile_pembelian`
 --
 
-INSERT INTO `detile_pembelian` (`id_detile_pembelian`, `nama_barang`, `kuantitas`, `harga`) VALUES
-(1, 'CAT TAN / MERAH BATA', '1', '1000'),
-(2, 'CAT TAN / MERAH BATA', '2', '1000'),
-(3, 'Cat Hitam / Soleda Irride BL Nero', '2', '60000'),
-(4, 'CAT TAN / MERAH BATA', '5', '80000'),
-(5, 'Cat Hitam / Soleda Irride BL Nero', '2', '70000'),
-(6, 'CAT TAN / MERAH BATA', '3', '80000');
+INSERT INTO `detile_pembelian` (`id_detile_pembelian`, `nama_barang`, `kuantitas`, `harga`, `id_pembelian`, `kode_barang`) VALUES
+(18, 'CAT TAN / MERAH BATA', '3', '70000', 25, '0059'),
+(19, 'Cat Hitam / Soleda Irride BL Nero', '5', '70000', 26, '0058'),
+(20, 'CAT TAN / MERAH BATA', '5', '500000', 26, '0059'),
+(21, 'CAT TAN / MERAH BATA', '3', '50000', 27, '0059'),
+(22, 'Cat Hitam / Soleda Irride BL Nero', '4', '80000', 27, '0058');
 
 -- --------------------------------------------------------
 
@@ -115,6 +116,28 @@ INSERT INTO `konversi_satuan` (`id_konversi`, `satuan`, `nilai`, `satuan2`, `nil
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `masuk_barang`
+--
+
+CREATE TABLE IF NOT EXISTS `masuk_barang` (
+`id_masuk` int(11) NOT NULL,
+  `kode_masuk` varchar(45) NOT NULL,
+  `id_pembelian` int(11) NOT NULL,
+  `tanggal_masuk` date NOT NULL,
+  `keterangan` varchar(1024) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `masuk_barang`
+--
+
+INSERT INTO `masuk_barang` (`id_masuk`, `kode_masuk`, `id_pembelian`, `tanggal_masuk`, `keterangan`) VALUES
+(1, 'KM-0001', 25, '2016-05-03', ''),
+(2, 'KM-0002', 27, '2016-05-02', '');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `migration`
 --
 
@@ -143,33 +166,16 @@ CREATE TABLE IF NOT EXISTS `pembelian` (
   `jenis_pembelian` enum('chemical','bahan_mentah') NOT NULL,
   `tanggal` date NOT NULL,
   `kode_supplier` varchar(50) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `pembelian`
 --
 
 INSERT INTO `pembelian` (`id_pembelian`, `kode_pembelian`, `jenis_pembelian`, `tanggal`, `kode_supplier`) VALUES
-(4, 'PB-0001', 'chemical', '2016-04-07', 'SP-001');
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `pembelian_detile_pembelian_link`
---
-
-CREATE TABLE IF NOT EXISTS `pembelian_detile_pembelian_link` (
-  `id_pembelian` int(11) DEFAULT NULL,
-  `id_detile_pembelian` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `pembelian_detile_pembelian_link`
---
-
-INSERT INTO `pembelian_detile_pembelian_link` (`id_pembelian`, `id_detile_pembelian`) VALUES
-(4, 5),
-(4, 6);
+(25, 'PB-0001', 'chemical', '2016-05-02', 'SP-001'),
+(26, 'PB-0002', 'chemical', '2016-05-10', 'SP-001'),
+(27, 'PB-0003', 'chemical', '2016-05-03', 'SP-001');
 
 -- --------------------------------------------------------
 
@@ -251,13 +257,13 @@ INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_res
 -- Indexes for table `barang`
 --
 ALTER TABLE `barang`
- ADD PRIMARY KEY (`id_barang`), ADD KEY `barang_satuan_idx` (`id_satuan`), ADD KEY `barang_kategori_idx` (`id_kategori`);
+ ADD PRIMARY KEY (`id_barang`), ADD KEY `barang_satuan_idx` (`id_satuan`), ADD KEY `barang_kategori_idx` (`id_kategori`), ADD KEY `kode_barang_idx` (`kode_barang`);
 
 --
 -- Indexes for table `detile_pembelian`
 --
 ALTER TABLE `detile_pembelian`
- ADD PRIMARY KEY (`id_detile_pembelian`), ADD KEY `pembelian_id_idx` (`id_detile_pembelian`);
+ ADD PRIMARY KEY (`id_detile_pembelian`), ADD KEY `pembelian_id_idx` (`id_pembelian`), ADD KEY `pembelian_barang_fk_idx` (`kode_barang`);
 
 --
 -- Indexes for table `kategori`
@@ -272,6 +278,12 @@ ALTER TABLE `konversi_satuan`
  ADD PRIMARY KEY (`id_konversi`), ADD KEY `konversi_satuan_fkey_idx` (`satuan`);
 
 --
+-- Indexes for table `masuk_barang`
+--
+ALTER TABLE `masuk_barang`
+ ADD PRIMARY KEY (`id_masuk`), ADD KEY `masuk_pembelian_fk_idx` (`id_pembelian`);
+
+--
 -- Indexes for table `migration`
 --
 ALTER TABLE `migration`
@@ -282,12 +294,6 @@ ALTER TABLE `migration`
 --
 ALTER TABLE `pembelian`
  ADD PRIMARY KEY (`id_pembelian`), ADD KEY `pembelian_kode_idx` (`kode_supplier`);
-
---
--- Indexes for table `pembelian_detile_pembelian_link`
---
-ALTER TABLE `pembelian_detile_pembelian_link`
- ADD KEY `pembelian_idx_idx` (`id_pembelian`), ADD KEY `detile_pembelian_idx_idx` (`id_detile_pembelian`);
 
 --
 -- Indexes for table `satuan`
@@ -320,17 +326,22 @@ MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT for table `detile_pembelian`
 --
 ALTER TABLE `detile_pembelian`
-MODIFY `id_detile_pembelian` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+MODIFY `id_detile_pembelian` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT for table `konversi_satuan`
 --
 ALTER TABLE `konversi_satuan`
 MODIFY `id_konversi` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
+-- AUTO_INCREMENT for table `masuk_barang`
+--
+ALTER TABLE `masuk_barang`
+MODIFY `id_masuk` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
 -- AUTO_INCREMENT for table `pembelian`
 --
 ALTER TABLE `pembelian`
-MODIFY `id_pembelian` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+MODIFY `id_pembelian` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=28;
 --
 -- AUTO_INCREMENT for table `supplier`
 --
@@ -353,23 +364,29 @@ ADD CONSTRAINT `barang_kategori_fk` FOREIGN KEY (`id_kategori`) REFERENCES `kate
 ADD CONSTRAINT `barang_satuan_fk` FOREIGN KEY (`id_satuan`) REFERENCES `satuan` (`id_satuan`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
+-- Ketidakleluasaan untuk tabel `detile_pembelian`
+--
+ALTER TABLE `detile_pembelian`
+ADD CONSTRAINT `detile_pembelian_barang_fk` FOREIGN KEY (`kode_barang`) REFERENCES `barang` (`kode_barang`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+ADD CONSTRAINT `detile_pembelian_fk` FOREIGN KEY (`id_pembelian`) REFERENCES `pembelian` (`id_pembelian`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Ketidakleluasaan untuk tabel `konversi_satuan`
 --
 ALTER TABLE `konversi_satuan`
 ADD CONSTRAINT `konversi_satuan_fkey` FOREIGN KEY (`satuan`) REFERENCES `satuan` (`id_satuan`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
+-- Ketidakleluasaan untuk tabel `masuk_barang`
+--
+ALTER TABLE `masuk_barang`
+ADD CONSTRAINT `masuk_pembelian_fk` FOREIGN KEY (`id_pembelian`) REFERENCES `pembelian` (`id_pembelian`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Ketidakleluasaan untuk tabel `pembelian`
 --
 ALTER TABLE `pembelian`
 ADD CONSTRAINT `pembelian_kodesp_FK` FOREIGN KEY (`kode_supplier`) REFERENCES `supplier` (`kode`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Ketidakleluasaan untuk tabel `pembelian_detile_pembelian_link`
---
-ALTER TABLE `pembelian_detile_pembelian_link`
-ADD CONSTRAINT `detile_pembelian_idx` FOREIGN KEY (`id_detile_pembelian`) REFERENCES `detile_pembelian` (`id_detile_pembelian`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-ADD CONSTRAINT `pembelian_idx` FOREIGN KEY (`id_pembelian`) REFERENCES `pembelian` (`id_pembelian`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

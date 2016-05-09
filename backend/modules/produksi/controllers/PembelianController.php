@@ -4,14 +4,15 @@ namespace app\modules\produksi\controllers;
 
 use Yii;
 use app\modules\produksi\models\Pembelian;
-use app\modules\produksi\models\ModelProduksi;
 use app\modules\produksi\models\DetilePembelian;
-use app\modules\produksi\models\PembelianDetilePembelianLink;
+
+use app\modules\produksi\models\ModelProduksi;
 use app\modules\produksi\models\PembelianSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
+use yii\data\ActiveDataProvider;
 
 /**
  * PembelianController implements the CRUD actions for Pembelian model.
@@ -48,6 +49,20 @@ class PembelianController extends Controller
         ]);
     }
 
+    public function actionCoba(){
+        $model = new Pembelian();
+
+        return $model->getDetilePembelian(5);
+    }
+
+    public function actionNamaBarang($kode){
+        $modelBarang = new Pembelian();
+
+        $barang = $modelBarang->getNamaBarang($kode);
+
+        return Json::encode($barang);
+    }
+
     /**
      * Displays a single Pembelian model.
      * @param integer $id
@@ -55,10 +70,46 @@ class PembelianController extends Controller
      */
     public function actionView($id)
     {
+        $model= $this->findModel($id);
+        $detile = $model->getDetilePembelians();
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $detile,
+        ]);
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'detile' => $dataProvider
         ]);
     }
+
+    public function actionViewDetail($id)
+    {
+        $model= $this->findModel($id);
+        $detile = $model->getDetilePembelians();
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $detile,
+        ]);
+        return $this->render('view', [
+            'model' => $model,
+            'detile' => $dataProvider
+        ]);
+    }
+
+    public function actionViewAjax($id)
+    {
+        $model= $this->findModel($id);
+        $detile = $model->getDetilePembelians();
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $detile,
+        ]);
+        return $this->renderAjax('view', [
+            'model' => $model,
+            'detile' => $dataProvider
+        ]);
+    }
+
 
     public function actionBarang(){
         $model = new Pembelian();
@@ -89,20 +140,23 @@ class PembelianController extends Controller
             $valid = $model->validate();
             $valid = ModelProduksi::validateMultiple($modelDetilePembelian) && $valid;
 
-            if($valid){
+            if(!$valid){
                 $transaction = \Yii::$app->db->beginTransaction();
 
                 try{
                     if($flag = $model->save(false)){
                         foreach ($modelDetilePembelian as $detilePembelian) {
-                            
-                            if($flag = $detilePembelian->save(false)){
-                                $link = new PembelianDetilePembelianLink();
-                                $link->id_pembelian = $model->id_pembelian;
-                                $link->id_detile_pembelian = $detilePembelian->id_detile_pembelian;
+                            $detilePembelian->id_pembelian = $model->id_pembelian;
+                            $kode_barang = $detilePembelian->kode_barang;
+                            $barang = $detilePembelian->getNamaBarang($kode_barang);
+                            $detilePembelian->nama_barang = $barang->nama_barang;
 
-                                $link->save(false);
-                            }
+
+                            if(!($flag= $detilePembelian->save(false))){
+                                $transaction->rollBack();
+                                break;
+                            }                          
+                                
                         }
                     }
 
@@ -115,7 +169,6 @@ class PembelianController extends Controller
                 }
             }
 
-            $model->save();
             return $this->redirect(['view', 'id' => $model->id_pembelian]);
         } 
 
@@ -145,6 +198,13 @@ class PembelianController extends Controller
                 'model' => $model,
             ]);
         }
+    }
+
+    public function actionDetail($id){
+        $model = $this->findModel($id);
+        $detile = $model->getDetilePembelians()->asArray()->all();
+
+        return Json::encode($detile);
     }
 
     /**
