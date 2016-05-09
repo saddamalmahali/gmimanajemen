@@ -48,7 +48,7 @@
                         ['label' => 'Barang', 'icon' => 'fa fa-archive', 'url' => ['/gudang/barang']],
                     ]],
                     ['label' => 'Keluar/Masuk Barang', 'icon' => 'fa fa-file-code-o', 'items' => [
-                        ['label' => 'Penerimaan Barang', 'icon' => 'fa fa-download', 'url' => ['#']],
+                        ['label' => 'Penerimaan Barang', 'icon' => 'fa fa-download', 'url' => ['/gudang/masuk-barang']],
                         ['label' => 'Keluar Barang', 'icon' => 'fa fa-external-link', 'url' => ['#']],
                     ]],
 

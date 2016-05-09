@@ -5,6 +5,8 @@ use kartik\grid\GridView;
 use yii\helpers\Url;
 use yii\bootstrap\Modal;
 use kartik\popover\PopoverX;
+use app\modules\produksi\models\PembelianSearch;
+use app\modules\produksi\models\Pembelian;
 
 
 /* @var $this yii\web\View */
@@ -39,6 +41,22 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'kartik\grid\SerialColumn'],
             
             //'id_masuk',
+            [
+                'class'=>'kartik\grid\ExpandRowColumn',
+                'value'=>function($model, $key, $index, $column){
+                    return GridView::ROW_COLLAPSED;
+                },
+                'detail'=>function($model, $key, $index){
+                   $modelp = $model->getIdPembelian()->one();
+
+
+                    return Yii::$app->controller->renderPartial('detail-pembelian', [
+                        'modelPembelian' => $modelp
+                    ]);
+
+                }
+            ],
+
             'kode_masuk',
             [
                 'attribute'=>'id_pembelian',
@@ -51,7 +69,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $pembelian->id_pembelian;
                 }
             ],
-            'id_pembelian',
+            //'id_pembelian',
             'tanggal_masuk',
             'keterangan',
 
