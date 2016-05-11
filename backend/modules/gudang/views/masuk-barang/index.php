@@ -86,6 +86,32 @@ $this->params['breadcrumbs'][] = $this->title;
                     return "<center><span class='label label-warning'>".$model->tanggal_masuk."</span></center>";
                 },
             ],
+
+            [
+                'label'=>'Jumlah Barang',
+                'value'=>function($model){
+
+                    $pembelian = $model->getIdPembelian()->one();
+                    $detilePembelian = $pembelian->getDetilePembelians()->sum('kuantitas');
+
+
+                    return $detilePembelian;
+                }
+            ],
+
+            [
+                
+                'label'=>'Total Pembelian',
+                'value'=>function($model){
+
+                    $pembelian = $model->getIdPembelian()->one();
+                    $detilePembelian = $pembelian->getDetilePembelians()->sum('harga');
+
+
+                    return $detilePembelian;
+                }
+            ],
+
             'keterangan',
 
             [

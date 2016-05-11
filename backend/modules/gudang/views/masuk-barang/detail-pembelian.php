@@ -39,16 +39,9 @@ use yii\helpers\Url;
                         'attribute'=>'kode_pembelian',
                         'label'=>'Kode Pembelian',
                         'format'=>'raw',
+                        'valueColOptions'=>['style'=>'width:40%'],
                         'value'=>$modelPembelian->kode_pembelian == "" ? "<span class='label label-warning'>".$modelPembelian->kode_pembelian."</span>" : "<span class='label label-warning'>".$modelPembelian->kode_pembelian."</span>"
-                    ],
-                    [
-                        'attribute'=>'kode_pembelian',
-                        'label'=>'Jenis Barang',
-                        'format'=>'raw',
-                        'value'=>$modelPembelian->kode_pembelian == "" ? "<span class='label label-warning'>".$modelPembelian->kode_pembelian."</span>" : "<span class='label label-warning'>".$modelPembelian->kode_pembelian."</span>",
-                        'valueColOptions'=>['style'=>'width:40%']
-
-                    ],
+                    ],                   
                     [
                         'attribute'=>'tanggal',
                         'label'=>'Tanggal Pembelian',

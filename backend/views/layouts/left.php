@@ -52,7 +52,7 @@
                         ['label' => 'Keluar Barang', 'icon' => 'fa fa-external-link', 'url' => ['#']],
                     ]],
                     ['label' => 'Stok Barang', 'icon' => 'fa fa-file-code-o', 'items' => [
-                        ['label' => 'Stok Bahan Kimia', 'icon' => 'fa fa-download', 'url' => ['#']],
+                        ['label' => 'Stok Bahan Kimia', 'icon' => 'fa fa-download', 'url' => ['/gudang/stok-bahan-kimia']],
                         ['label' => 'Barang Mentah', 'icon' => 'fa fa-download', 'url' => ['#']],
                         ['label' => 'Barang Jadi', 'icon' => 'fa fa-external-link', 'url' => ['#']],
                     ]],

@@ -13,6 +13,19 @@
 		inner join detile_pembelian dp on dp.id_pembelian=p.id_pembelian 
         left join barang b on b.kode_barang=dp.kode_barang
         join (select @jumlah := 0) v;
+        
+	#Query Pemanggilan Persediaan Barang
+    select b.id_barang, b.id_satuan, b.kode_barang, b.nama_barang, b.id_kategori, 
+
+	@persediaan := (select sum(dp.kuantitas) from detile_pembelian dp 
+					where dp.kode_barang=b.kode_barang and dp.id_pembelian in
+					(select mb.id_pembelian from masuk_barang mb)
+				   ) 
+	as persediaan
+	 from barang b
+	 join (select @persediaan := 0) v
+
+	where b.id_kategori='K-002'
 
 */
 	
