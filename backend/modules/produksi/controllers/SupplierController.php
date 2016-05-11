@@ -56,6 +56,13 @@ class SupplierController extends Controller
         ]);
     }
 
+    public function actionView_kode($kode_supplier)
+    {
+        return $this->render('view_kode', [
+            'model' => $this->findModel($kode_supplier),
+        ]);
+    }
+
     /**
      * Creates a new Supplier model.
      * If creation is successful, the browser will be redirected to the 'view' page.

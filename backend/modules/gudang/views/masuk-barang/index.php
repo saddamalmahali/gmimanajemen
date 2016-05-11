@@ -7,6 +7,8 @@ use yii\bootstrap\Modal;
 use kartik\popover\PopoverX;
 use app\modules\produksi\models\PembelianSearch;
 use app\modules\produksi\models\Pembelian;
+use app\modules\produksi\models\DetilePembelian;
+use yii\data\ActiveDataProvider;
 
 
 /* @var $this yii\web\View */
@@ -48,10 +50,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'detail'=>function($model, $key, $index){
                    $modelp = $model->getIdPembelian()->one();
+                   $sql = DetilePembelian::find()->where(['id_pembelian'=>$model->id_pembelian]);
+                   
 
+                    $dataProvider = new ActiveDataProvider([
+                        'query' => $sql,
+                    ]);
 
                     return Yii::$app->controller->renderPartial('detail-pembelian', [
-                        'modelPembelian' => $modelp
+                        'modelPembelian' => $modelp,
+                        'dataProvider'=>$dataProvider
                     ]);
 
                 }
@@ -70,10 +78,21 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             //'id_pembelian',
-            'tanggal_masuk',
+            [
+                'attribute'=>'tanggal_masuk',
+                'format'=>'raw',
+
+                'value'=> function($model){
+                    return "<center><span class='label label-warning'>".$model->tanggal_masuk."</span></center>";
+                },
+            ],
             'keterangan',
 
-            ['class' => 'kartik\grid\ActionColumn'],
+            [
+
+                'class' => 'kartik\grid\ActionColumn',
+                'template'=>'{delete}'
+            ],
         ],
     ]); ?>
 </div>
