@@ -51,6 +51,11 @@
                         ['label' => 'Penerimaan Barang', 'icon' => 'fa fa-download', 'url' => ['/gudang/masuk-barang']],
                         ['label' => 'Keluar Barang', 'icon' => 'fa fa-external-link', 'url' => ['#']],
                     ]],
+                    ['label' => 'Stok Barang', 'icon' => 'fa fa-file-code-o', 'items' => [
+                        ['label' => 'Stok Bahan Kimia', 'icon' => 'fa fa-download', 'url' => ['#']],
+                        ['label' => 'Barang Mentah', 'icon' => 'fa fa-download', 'url' => ['#']],
+                        ['label' => 'Barang Jadi', 'icon' => 'fa fa-external-link', 'url' => ['#']],
+                    ]],
 
 
                     ['label' => 'Menu Yii2', 'options' => ['class' => 'header']],
