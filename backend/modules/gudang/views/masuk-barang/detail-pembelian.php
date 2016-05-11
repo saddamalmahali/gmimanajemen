@@ -7,9 +7,7 @@ use kartik\detail\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\modules\gudang\models\MasukBarang */
 
-$this->title = $modelPembelian->kode_pembelian;
-$this->params['breadcrumbs'][] = ['label' => 'Daftar Masuk Barang', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+
 ?>
 
 <div class="masuk-barang-detail-pembelian">
