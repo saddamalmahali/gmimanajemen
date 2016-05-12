@@ -28,4 +28,15 @@
 	where b.id_kategori='K-002'
 
 */
-	
+	select s.id_supplier, s.kode, s.nama,
+    @kuantitas := (select sum(dp.kuantitas) from pembelian p 
+					inner join detile_pembelian dp on dp.id_pembelian = p.id_pembelian 
+                    join barang b on b.kode_barang = dp.kode_barang
+                    where b.id_kategori = 'K-001' 
+                    and p.kode_supplier = s.kode 
+                    and p.id_pembelian in(select mb.id_pembelian from masuk_barang mb))
+    as tersedia
+    from supplier s
+    join (select @kuantitas := 0) v
+    
+    
