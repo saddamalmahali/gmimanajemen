@@ -36,7 +36,8 @@
                     and p.kode_supplier = s.kode 
                     and p.id_pembelian in(select mb.id_pembelian from masuk_barang mb))
     as tersedia
-    from supplier s
+    from supplier s     
     join (select @kuantitas := 0) v
+    
     
     

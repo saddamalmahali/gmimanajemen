@@ -87,12 +87,16 @@ class BarangController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $listSatuan = $model->getListSatuan();
+        $listKategori = $model->getListKategori();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id_barang]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'listSatuan'=>$listSatuan,
+                'listKategori'=>$listKategori,
             ]);
         }
     }

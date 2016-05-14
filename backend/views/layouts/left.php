@@ -42,6 +42,12 @@
                         ['label' => 'Pembelian', 'icon' => 'fa fa-shopping-bag', 'url' => ['/produksi/pembelian']],
                     ]],
 
+                    ['label' => 'Proses', 'items' => [
+                        ['label' => 'Proses 1', 'icon' => 'fa fa-street-view', 'url' => ['#']],
+                        ['label' => 'Proses 2', 'icon' => 'fa fa-shopping-bag', 'url' => ['#']],
+                        ['label' => 'Finalisasi', 'icon' => 'fa fa-shopping-bag', 'url' => ['#']],
+                    ]],
+
                     ['label' => 'Gudang', 'options' => ['class' => 'header']],
                     ['label' => 'Master Data', 'icon' => 'fa fa-file-code-o', 'items' => [
                         ['label' => 'Kategori', 'icon' => 'fa fa-folder-o', 'url' => ['/gudang/kategori']],
@@ -49,7 +55,7 @@
                     ]],
                     ['label' => 'Keluar/Masuk Barang', 'icon' => 'fa fa-file-code-o', 'items' => [
                         ['label' => 'Penerimaan Barang', 'icon' => 'fa fa-download', 'url' => ['/gudang/masuk-barang']],
-                        ['label' => 'Keluar Barang', 'icon' => 'fa fa-external-link', 'url' => ['#']],
+                        ['label' => 'Keluar Barang', 'icon' => 'fa fa-external-link', 'url' => ['/gudang/barang-keluar']],
                     ]],
                     ['label' => 'Stok Barang', 'icon' => 'fa fa-file-code-o', 'items' => [
                         ['label' => 'Stok Bahan Kimia', 'icon' => 'fa fa-download', 'url' => ['/gudang/stok-bahan-kimia']],

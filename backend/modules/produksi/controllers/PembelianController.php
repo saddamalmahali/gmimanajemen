@@ -215,7 +215,17 @@ class PembelianController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model_pembelian = $this->findModel($id);
+        $model_detile_pembelian = $model_pembelian->getDetilePembelians()->all();
+
+        if(!is_null($model_detile_pembelian)){
+           foreach($model_detile_pembelian as $pembelian ){
+                $pembelian->delete();
+           }
+
+        }
+
+        $model_pembelian->delete();
 
         return $this->redirect(['index']);
     }
