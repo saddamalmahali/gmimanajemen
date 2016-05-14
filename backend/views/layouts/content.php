@@ -1,6 +1,6 @@
 <?php
 use yii\widgets\Breadcrumbs;
-use dmstr\widgets\Alert;
+use kartik\widgets\Growl;
 
 ?>
 <div class="content-wrapper">
@@ -17,7 +17,26 @@ use dmstr\widgets\Alert;
     </section>
 
     <section class="content">        
-        <?= Alert::widget() ?>
+        <?php if(Yii::$app->session->hasFlash('success')){ ?>
+
+            <?= Growl::widget([
+                'type' => Growl::TYPE_INFO,
+                'title' => 'Sukses',
+                'icon' => 'glyphicon glyphicon-info-sign',
+                'body' => Yii::$app->session->getFlash('success'),
+                'showSeparator' => true,
+                'delay' => 1500,
+                'pluginOptions' => [
+                    'showProgressbar' => true,
+                    'placement' => [
+                        'from' => 'top',
+                        'align' => 'right',
+                    ]
+                ]
+            ]); 
+        
+            ?>
+        <?php } ?>
         <?= $content ?>
     </section>
 </div>

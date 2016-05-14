@@ -10,6 +10,7 @@ use app\modules\gudang\models\BarangKeluarSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Json;
 
 /**
  * BarangKeluarController implements the CRUD actions for BarangKeluar model.
@@ -58,6 +59,12 @@ class BarangKeluarController extends Controller
         ]);
     }
 
+    public function actionGetBarang($id){
+        $barangKeluar = new BarangKeluar;
+        $barang = $barangKeluar->getBarang($id);
+        return Json::encode($barang);
+    }
+
     /**
      * Creates a new BarangKeluar model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -95,7 +102,8 @@ class BarangKeluarController extends Controller
 
                     if($flag){
                         $transaction->commit();
-                        return $this->redirect(['view', 'id'=>$model->id_keluar]);
+                        Yii::$app->session->setFlash('success', 'Data Barang Keluar berhasil tersimpan');
+                        return $this->redirect('index');
                     }
                 }catch(Exception $e){
                     $transaction->rollback();
@@ -140,7 +148,14 @@ class BarangKeluarController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+
+        if(!is_null($model)){
+            $detile = $model->getDetileBarangKeluars()->all();
+            if(DetileBarangKeluar::deleteAll(['id_barang_keluar'=>$model->id_keluar])){
+                $model->delete();
+            }
+        }
 
         return $this->redirect(['index']);
     }

@@ -23,8 +23,44 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 
-    <h1></h1>
+    
 
     
 
 </div>
+<?php 
+
+    $this->registerJs("
+        
+
+        $('.dynamicform_wrapper').on('afterInsert', function(e, item) {
+            console.log($(item));
+            $('tr td select').change(function(e){
+                
+                $.get({
+                    'url':'http://localhost/gmimanajemen/backend/web/index.php/gudang/barang-keluar/get-barang', 
+                    'data':{ 'id' : $(this).val()}, 
+                    'dataType':'json'
+                }).done(function(data){
+                    console.log(data.nama_barang);
+                    $(e.target).parent().parent().next().find('input:text').val(data.nama_barang);
+                    
+                });
+            });
+        });
+
+    $('tr td select').change(function(e){
+                
+        $.get({
+            'url':'http://localhost/gmimanajemen/backend/web/index.php/gudang/barang-keluar/get-barang', 
+            'data':{ 'id' : $(this).val()}, 
+            'dataType':'json'
+        }).done(function(data){
+            console.log(data.nama_barang);
+            $(e.target).parent().parent().next().find('input:text').val(data.nama_barang);
+                    
+        });
+    });
+        
+    ");
+?>

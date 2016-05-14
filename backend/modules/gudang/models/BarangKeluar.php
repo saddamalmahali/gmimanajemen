@@ -77,4 +77,10 @@ class BarangKeluar extends \yii\db\ActiveRecord
 
         return ArrayHelper::map($list_kategori, 'id_kategori', 'nama_kategori');
     }
+
+    public function getBarang($kode_barang){
+        $barang = Barang::find()->where(['kode_barang'=>$kode_barang])->one();
+
+        return $barang;
+    }
 }

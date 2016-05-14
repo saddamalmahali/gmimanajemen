@@ -95,7 +95,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                         ])->label(false) ?>
                                     </td>
                                     
-                                    <td><?= $form->field($detileBarangKeluar, "[{$i}]nama_barang")->textInput(['id'=>'nama_barang_text','maxlength' => true])->label(false) ?></td>
+                                    <td><?= $form->field($detileBarangKeluar, "[{$i}]nama_barang")->textInput(['readonly'=>true,'maxlength' => true])->label(false) ?></td>
                                     <td><?= $form->field($detileBarangKeluar, "[{$i}]banyak")->textInput(['maxlength' => true])->label(false) ?></td>
                                     <td><center><button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button></center></td>
                                 </tr>
