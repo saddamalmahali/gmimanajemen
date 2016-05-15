@@ -22,7 +22,14 @@ use kartik\grid\GridView;
 	        		'attribute'=>'nama_barang',
 	        		'label'=>'Nama Barang'
 	        	],
-	        	'persediaan'
+	        	[
+					'attribute'=>'persediaan',
+					'label'=>'Stok Barang yang Tersedia',
+					'format'=>'raw',
+					'value'=> function($model){
+						return $model['persediaan'] = 0 ? "<span class='bg-warning'>".$model['persediaan']."</span>" : $model['persediaan'];
+					}
+				]
 	        ]
 		])
 

@@ -19,8 +19,11 @@ class StokBahanKimiaController extends Controller
 
 				@persediaan := (select sum(dp.kuantitas) from detile_pembelian dp 
 								where dp.kode_barang=b.kode_barang and dp.id_pembelian in
-				                (select mb.id_pembelian from masuk_barang mb)
-				               ) 
+								(select mb.id_pembelian from masuk_barang mb)
+							   ) 
+							   - (select sum(dbk.banyak) from detile_barang_keluar dbk
+								where dbk.kode_barang=b.kode_barang and dbk.id_barang_keluar in
+								(select bk.id_keluar from barang_keluar bk))
 				as persediaan
 				 from barang b
 				 join (select @persediaan := 0) v

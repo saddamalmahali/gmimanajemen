@@ -26,9 +26,9 @@
 	 join (select @persediaan := 0) v
 
 	where b.id_kategori='K-002'
-
-*/
-	select s.id_supplier, s.kode, s.nama,
+    
+    #query persediaan bahan mentah
+    select s.id_supplier, s.kode, s.nama,
     @kuantitas := (select sum(dp.kuantitas) from pembelian p 
 					inner join detile_pembelian dp on dp.id_pembelian = p.id_pembelian 
                     join barang b on b.kode_barang = dp.kode_barang
@@ -38,6 +38,23 @@
     as tersedia
     from supplier s     
     join (select @kuantitas := 0) v
-    
+
+*/
+	
+				   
+    select b.id_barang, b.id_satuan, b.kode_barang, b.nama_barang, b.id_kategori, 
+
+	@persediaan := (select sum(dp.kuantitas) from detile_pembelian dp 
+					where dp.kode_barang=b.kode_barang and dp.id_pembelian in
+					(select mb.id_pembelian from masuk_barang mb)
+				   ) 
+                   - (select sum(dbk.banyak) from detile_barang_keluar dbk
+					where dbk.kode_barang=b.kode_barang and dbk.id_barang_keluar in
+					(select bk.id_keluar from barang_keluar bk))
+	as persediaan
+	 from barang b
+	 join (select @persediaan := 0) v
+
+	where b.id_kategori='K-002'
     
     
