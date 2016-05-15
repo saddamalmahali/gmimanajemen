@@ -3,8 +3,8 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 09 Mei 2016 pada 12.03
--- Versi Server: 5.6.21
+-- Generation Time: May 15, 2016 at 08:28 AM
+-- Server version: 5.6.21
 -- PHP Version: 5.5.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -23,7 +23,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `barang`
+-- Table structure for table `barang`
 --
 
 CREATE TABLE IF NOT EXISTS `barang` (
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `barang` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `barang`
+-- Dumping data for table `barang`
 --
 
 INSERT INTO `barang` (`id_barang`, `id_satuan`, `kode_barang`, `nama_barang`, `keterangan`, `id_kategori`) VALUES
@@ -46,7 +46,53 @@ INSERT INTO `barang` (`id_barang`, `id_satuan`, `kode_barang`, `nama_barang`, `k
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `detile_pembelian`
+-- Table structure for table `barang_keluar`
+--
+
+CREATE TABLE IF NOT EXISTS `barang_keluar` (
+`id_keluar` int(11) NOT NULL,
+  `kode_keluar` varchar(45) DEFAULT NULL,
+  `kategori_barang` varchar(11) DEFAULT NULL,
+  `tanggal_keluar` date DEFAULT NULL,
+  `keterangan` varchar(1024) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `barang_keluar`
+--
+
+INSERT INTO `barang_keluar` (`id_keluar`, `kode_keluar`, `kategori_barang`, `tanggal_keluar`, `keterangan`) VALUES
+(1, 'K-001', 'K-002', '2016-05-10', ''),
+(2, 'K-002', 'K-002', '2016-05-14', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `detile_barang_keluar`
+--
+
+CREATE TABLE IF NOT EXISTS `detile_barang_keluar` (
+`id` int(11) NOT NULL,
+  `id_barang_keluar` int(11) NOT NULL,
+  `kode_barang` varchar(10) NOT NULL,
+  `nama_barang` varchar(45) NOT NULL,
+  `banyak` varchar(45) NOT NULL,
+  `keterangan` varchar(1024) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `detile_barang_keluar`
+--
+
+INSERT INTO `detile_barang_keluar` (`id`, `id_barang_keluar`, `kode_barang`, `nama_barang`, `banyak`, `keterangan`) VALUES
+(1, 1, '0058', 'Cat Hitam / Soleda Irride BL Nero', '5', NULL),
+(2, 1, '0058', 'Cat Hitam / Soleda Irride BL Nero', '6', NULL),
+(3, 2, '0059', 'CAT TAN / MERAH BATA', '3', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `detile_pembelian`
 --
 
 CREATE TABLE IF NOT EXISTS `detile_pembelian` (
@@ -59,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `detile_pembelian` (
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `detile_pembelian`
+-- Dumping data for table `detile_pembelian`
 --
 
 INSERT INTO `detile_pembelian` (`id_detile_pembelian`, `nama_barang`, `kuantitas`, `harga`, `id_pembelian`, `kode_barang`) VALUES
@@ -72,7 +118,7 @@ INSERT INTO `detile_pembelian` (`id_detile_pembelian`, `nama_barang`, `kuantitas
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `kategori`
+-- Table structure for table `kategori`
 --
 
 CREATE TABLE IF NOT EXISTS `kategori` (
@@ -82,7 +128,7 @@ CREATE TABLE IF NOT EXISTS `kategori` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `kategori`
+-- Dumping data for table `kategori`
 --
 
 INSERT INTO `kategori` (`nama_kategori`, `keterangan`, `id_kategori`) VALUES
@@ -93,7 +139,7 @@ INSERT INTO `kategori` (`nama_kategori`, `keterangan`, `id_kategori`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `konversi_satuan`
+-- Table structure for table `konversi_satuan`
 --
 
 CREATE TABLE IF NOT EXISTS `konversi_satuan` (
@@ -105,7 +151,7 @@ CREATE TABLE IF NOT EXISTS `konversi_satuan` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `konversi_satuan`
+-- Dumping data for table `konversi_satuan`
 --
 
 INSERT INTO `konversi_satuan` (`id_konversi`, `satuan`, `nilai`, `satuan2`, `nilai2`) VALUES
@@ -116,7 +162,7 @@ INSERT INTO `konversi_satuan` (`id_konversi`, `satuan`, `nilai`, `satuan2`, `nil
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `masuk_barang`
+-- Table structure for table `masuk_barang`
 --
 
 CREATE TABLE IF NOT EXISTS `masuk_barang` (
@@ -128,7 +174,7 @@ CREATE TABLE IF NOT EXISTS `masuk_barang` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `masuk_barang`
+-- Dumping data for table `masuk_barang`
 --
 
 INSERT INTO `masuk_barang` (`id_masuk`, `kode_masuk`, `id_pembelian`, `tanggal_masuk`, `keterangan`) VALUES
@@ -138,7 +184,7 @@ INSERT INTO `masuk_barang` (`id_masuk`, `kode_masuk`, `id_pembelian`, `tanggal_m
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `migration`
+-- Table structure for table `migration`
 --
 
 CREATE TABLE IF NOT EXISTS `migration` (
@@ -147,7 +193,7 @@ CREATE TABLE IF NOT EXISTS `migration` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `migration`
+-- Dumping data for table `migration`
 --
 
 INSERT INTO `migration` (`version`, `apply_time`) VALUES
@@ -157,7 +203,7 @@ INSERT INTO `migration` (`version`, `apply_time`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pembelian`
+-- Table structure for table `pembelian`
 --
 
 CREATE TABLE IF NOT EXISTS `pembelian` (
@@ -169,7 +215,7 @@ CREATE TABLE IF NOT EXISTS `pembelian` (
 ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `pembelian`
+-- Dumping data for table `pembelian`
 --
 
 INSERT INTO `pembelian` (`id_pembelian`, `kode_pembelian`, `jenis_pembelian`, `tanggal`, `kode_supplier`) VALUES
@@ -180,7 +226,28 @@ INSERT INTO `pembelian` (`id_pembelian`, `kode_pembelian`, `jenis_pembelian`, `t
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `satuan`
+-- Table structure for table `proses_1`
+--
+
+CREATE TABLE IF NOT EXISTS `proses_1` (
+`id` int(11) NOT NULL,
+  `id_barang_keluar` int(11) NOT NULL,
+  `tanggal` date DEFAULT NULL,
+  `keterangan` varchar(1024) DEFAULT NULL,
+  `selesai` tinyint(1) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `proses_1`
+--
+
+INSERT INTO `proses_1` (`id`, `id_barang_keluar`, `tanggal`, `keterangan`, `selesai`) VALUES
+(1, 1, '2016-05-11', 'Coba', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `satuan`
 --
 
 CREATE TABLE IF NOT EXISTS `satuan` (
@@ -191,7 +258,7 @@ CREATE TABLE IF NOT EXISTS `satuan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `satuan`
+-- Dumping data for table `satuan`
 --
 
 INSERT INTO `satuan` (`id_satuan`, `nama_satuan`, `satuan`, `keterangan`) VALUES
@@ -202,7 +269,7 @@ INSERT INTO `satuan` (`id_satuan`, `nama_satuan`, `satuan`, `keterangan`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `supplier`
+-- Table structure for table `supplier`
 --
 
 CREATE TABLE IF NOT EXISTS `supplier` (
@@ -217,7 +284,7 @@ CREATE TABLE IF NOT EXISTS `supplier` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `supplier`
+-- Dumping data for table `supplier`
 --
 
 INSERT INTO `supplier` (`id_supplier`, `kode`, `nama`, `alamat`, `phone`, `email`, `npwp`, `create_date`) VALUES
@@ -227,7 +294,7 @@ INSERT INTO `supplier` (`id_supplier`, `kode`, `nama`, `alamat`, `phone`, `email
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `user`
+-- Table structure for table `user`
 --
 
 CREATE TABLE IF NOT EXISTS `user` (
@@ -243,7 +310,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data untuk tabel `user`
+-- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `status`, `created_at`, `updated_at`) VALUES
@@ -258,6 +325,18 @@ INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_res
 --
 ALTER TABLE `barang`
  ADD PRIMARY KEY (`id_barang`), ADD KEY `barang_satuan_idx` (`id_satuan`), ADD KEY `barang_kategori_idx` (`id_kategori`), ADD KEY `kode_barang_idx` (`kode_barang`);
+
+--
+-- Indexes for table `barang_keluar`
+--
+ALTER TABLE `barang_keluar`
+ ADD PRIMARY KEY (`id_keluar`), ADD UNIQUE KEY `kode_keluar_UNIQUE` (`kode_keluar`), ADD KEY `barang_keluar_kategori_fk_idx` (`kategori_barang`);
+
+--
+-- Indexes for table `detile_barang_keluar`
+--
+ALTER TABLE `detile_barang_keluar`
+ ADD PRIMARY KEY (`id`), ADD KEY `detile_barang_keluar_barang_fk_idx` (`kode_barang`), ADD KEY `detile_barang_keluar_barang_keluar_fk_idx` (`id_barang_keluar`);
 
 --
 -- Indexes for table `detile_pembelian`
@@ -296,6 +375,12 @@ ALTER TABLE `pembelian`
  ADD PRIMARY KEY (`id_pembelian`), ADD KEY `pembelian_kode_idx` (`kode_supplier`);
 
 --
+-- Indexes for table `proses_1`
+--
+ALTER TABLE `proses_1`
+ ADD PRIMARY KEY (`id`), ADD KEY `id_barang_keluar_idx` (`id_barang_keluar`);
+
+--
 -- Indexes for table `satuan`
 --
 ALTER TABLE `satuan`
@@ -323,6 +408,16 @@ ALTER TABLE `user`
 ALTER TABLE `barang`
 MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
+-- AUTO_INCREMENT for table `barang_keluar`
+--
+ALTER TABLE `barang_keluar`
+MODIFY `id_keluar` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `detile_barang_keluar`
+--
+ALTER TABLE `detile_barang_keluar`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
 -- AUTO_INCREMENT for table `detile_pembelian`
 --
 ALTER TABLE `detile_pembelian`
@@ -343,6 +438,11 @@ MODIFY `id_masuk` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 ALTER TABLE `pembelian`
 MODIFY `id_pembelian` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=28;
 --
+-- AUTO_INCREMENT for table `proses_1`
+--
+ALTER TABLE `proses_1`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT for table `supplier`
 --
 ALTER TABLE `supplier`
@@ -353,40 +453,59 @@ MODIFY `id_supplier` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 ALTER TABLE `user`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `barang`
+-- Constraints for table `barang`
 --
 ALTER TABLE `barang`
 ADD CONSTRAINT `barang_kategori_fk` FOREIGN KEY (`id_kategori`) REFERENCES `kategori` (`id_kategori`) ON DELETE NO ACTION ON UPDATE NO ACTION,
 ADD CONSTRAINT `barang_satuan_fk` FOREIGN KEY (`id_satuan`) REFERENCES `satuan` (`id_satuan`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Ketidakleluasaan untuk tabel `detile_pembelian`
+-- Constraints for table `barang_keluar`
+--
+ALTER TABLE `barang_keluar`
+ADD CONSTRAINT `barang_keluar_kategori_fk` FOREIGN KEY (`kategori_barang`) REFERENCES `kategori` (`id_kategori`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `detile_barang_keluar`
+--
+ALTER TABLE `detile_barang_keluar`
+ADD CONSTRAINT `detile_barang_keluar_barang_fk` FOREIGN KEY (`kode_barang`) REFERENCES `barang` (`kode_barang`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+ADD CONSTRAINT `detile_barang_keluar_barang_keluar_fk` FOREIGN KEY (`id_barang_keluar`) REFERENCES `barang_keluar` (`id_keluar`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `detile_pembelian`
 --
 ALTER TABLE `detile_pembelian`
 ADD CONSTRAINT `detile_pembelian_barang_fk` FOREIGN KEY (`kode_barang`) REFERENCES `barang` (`kode_barang`) ON DELETE NO ACTION ON UPDATE NO ACTION,
 ADD CONSTRAINT `detile_pembelian_fk` FOREIGN KEY (`id_pembelian`) REFERENCES `pembelian` (`id_pembelian`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Ketidakleluasaan untuk tabel `konversi_satuan`
+-- Constraints for table `konversi_satuan`
 --
 ALTER TABLE `konversi_satuan`
 ADD CONSTRAINT `konversi_satuan_fkey` FOREIGN KEY (`satuan`) REFERENCES `satuan` (`id_satuan`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Ketidakleluasaan untuk tabel `masuk_barang`
+-- Constraints for table `masuk_barang`
 --
 ALTER TABLE `masuk_barang`
 ADD CONSTRAINT `masuk_pembelian_fk` FOREIGN KEY (`id_pembelian`) REFERENCES `pembelian` (`id_pembelian`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Ketidakleluasaan untuk tabel `pembelian`
+-- Constraints for table `pembelian`
 --
 ALTER TABLE `pembelian`
 ADD CONSTRAINT `pembelian_kodesp_FK` FOREIGN KEY (`kode_supplier`) REFERENCES `supplier` (`kode`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `proses_1`
+--
+ALTER TABLE `proses_1`
+ADD CONSTRAINT `id_barang_keluar` FOREIGN KEY (`id_barang_keluar`) REFERENCES `barang_keluar` (`id_keluar`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

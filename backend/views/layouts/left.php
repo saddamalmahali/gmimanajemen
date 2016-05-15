@@ -43,7 +43,7 @@
                     ]],
 
                     ['label' => 'Proses', 'items' => [
-                        ['label' => 'Proses 1', 'icon' => 'fa fa-street-view', 'url' => ['#']],
+                        ['label' => 'Proses 1', 'icon' => 'fa fa-street-view', 'url' => ['/produksi/proses-1']],
                         ['label' => 'Proses 2', 'icon' => 'fa fa-shopping-bag', 'url' => ['#']],
                         ['label' => 'Finalisasi', 'icon' => 'fa fa-shopping-bag', 'url' => ['#']],
                     ]],
