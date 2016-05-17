@@ -67,9 +67,10 @@ class Proses1Controller extends Controller
 		$listKeluarBarang = $model->getListBarangKeluar();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+			Yii::$app->session->setFlash('success', 'Proses berhasil ditambahkan');
+            return $this->redirect('index');
         } else {
-            return $this->render('create', [
+            return $this->renderAjax('create', [
                 'model' => $model,
 				'listKeluarBarang'=>$listKeluarBarang
             ]);
@@ -85,11 +86,16 @@ class Proses1Controller extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+		$listKeluarBarang = $model->getListBarangKeluar();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+			if($model->save(false)){
+				Yii::$app->session->setFlash('success', 'Proses dengan id='.$model->id.' telah selesai!');
+				return $this->redirect('index');
+			}
+			
         } else {
-            return $this->render('update', [
+            return $this->renderAjax('update', [
                 'model' => $model,
             ]);
         }

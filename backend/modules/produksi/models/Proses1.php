@@ -34,8 +34,9 @@ class Proses1 extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_barang_keluar', 'selesai'], 'required'],
+            [['id_barang_keluar', 'selesai', 'kode_proses_1'], 'required'],
             [['id_barang_keluar', 'selesai'], 'integer'],
+			[['kode_proses_1'], 'string', 'max'=>10],
             [['tanggal'], 'safe'],
             [['keterangan'], 'string', 'max' => 1024],
             [['id_barang_keluar'], 'exist', 'skipOnError' => true, 'targetClass' => BarangKeluar::className(), 'targetAttribute' => ['id_barang_keluar' => 'id_keluar']],

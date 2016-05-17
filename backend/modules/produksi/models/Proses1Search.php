@@ -19,7 +19,7 @@ class Proses1Search extends Proses1
     {
         return [
             [['id', 'id_barang_keluar', 'selesai'], 'integer'],
-            [['tanggal', 'keterangan'], 'safe'],
+            [['tanggal', 'keterangan', 'kode_proses_1'], 'safe'],
         ];
     }
 
@@ -63,6 +63,7 @@ class Proses1Search extends Proses1
             'id_barang_keluar' => $this->id_barang_keluar,
             'tanggal' => $this->tanggal,
             'selesai' => $this->selesai,
+			'kode_proses_1'=> $this->kode_proses_1
         ]);
 
         $query->andFilterWhere(['like', 'keterangan', $this->keterangan]);

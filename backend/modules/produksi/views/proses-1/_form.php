@@ -13,7 +13,9 @@ use kartik\widgets\DatePicker;
 <div class="proses1-form">
 
     <?php $form = ActiveForm::begin(); ?>
-
+	
+	<?= $form->field($model, 'kode_proses_1')->textInput(['maxLength' => 10]) ?>
+	
     <?= $form->field($model, 'id_barang_keluar')->widget(Select2::classname(), [
 		'data' => $listKeluarBarang,
 	    'options' => ['placeholder' => 'Pilih Supplier'],
