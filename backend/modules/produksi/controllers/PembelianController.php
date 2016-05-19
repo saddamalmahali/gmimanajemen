@@ -162,18 +162,18 @@ class PembelianController extends Controller
 
                     if($flag){
                         $transaction->commit();
-                        return $this->redirect(['view', 'id'=>$model->id_pembelian]);
+                        return $this->redirect('index');
                     }
                 }catch(Exception $e){
                     $transaction->rollBack();
                 }
             }
 
-            return $this->redirect(['view', 'id' => $model->id_pembelian]);
+            return $this->redirect('index');
         } 
 
 
-        return $this->render('create', [
+        return $this->renderAjax('create', [
                 'model' => $model,
                 'listSupplier' => $listSupplier,
                 'modelDetilePembelian' => empty($modelDetilePembelian) ? [new DetilePembelian()] : $modelDetilePembelian,

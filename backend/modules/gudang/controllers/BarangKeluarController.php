@@ -112,7 +112,7 @@ class BarangKeluarController extends Controller
 
         } 
 
-            return $this->render('create', [
+            return $this->renderAjax('create', [
                 'model' => $model,
                 'listModelDetileBarangKeluar'=>empty($listModelDetileBarangKeluar) ? [new DetileBarangKeluar()] : $listModelDetileBarangKeluar,
                 'listKategori'=>$list_kategori,

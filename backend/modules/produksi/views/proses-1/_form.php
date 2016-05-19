@@ -18,7 +18,7 @@ use kartik\widgets\DatePicker;
 	
     <?= $form->field($model, 'id_barang_keluar')->widget(Select2::classname(), [
 		'data' => $listKeluarBarang,
-	    'options' => ['placeholder' => 'Pilih Supplier'],
+	    'options' => ['placeholder' => 'Pilih Nota Barang Keluar'],
 	    'pluginOptions' => [
 	        'allowClear' => true
 	    ],

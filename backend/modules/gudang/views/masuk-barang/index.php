@@ -9,6 +9,7 @@ use app\modules\produksi\models\PembelianSearch;
 use app\modules\produksi\models\Pembelian;
 use app\modules\produksi\models\DetilePembelian;
 use yii\data\ActiveDataProvider;
+use yii\widgets\Pjax;
 
 
 /* @var $this yii\web\View */
@@ -22,6 +23,18 @@ $this->params['breadcrumbs'][] = $this->title;
 
     
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php 
+        Modal::begin([
+            'id'=>'modal-masuk-barang',
+            'headerOptions'=>['class'=>'bg-primary'],
+            'size'=>'modal-md'
+            
+        ]);
+
+            echo "<div id='content-dlg-masuk-barang'></div>";
+        Modal::end();
+
+    ?>
     
     
     <?= GridView::widget([
@@ -31,7 +44,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'toolbar'=> [
             ['content'=>
                 
-                Html::a('<i class="glyphicon glyphicon-plus"></i>', ['create'], ['class' => 'btn btn-success'])
+                Html::button('<i class="glyphicon glyphicon-plus"></i>', 
+                    [
+                        'value'=>Url::to(['/gudang/masuk-barang/create']),
+                        'class' => 'btn btn-primary btn_tambah'
+                    ])
             ],
             '{toggleData}',
         ],
@@ -121,9 +138,21 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]); ?>
+
 </div>
 
 <?php 
 
-    
+    $js= <<< JS
+        $(".btn_tambah").click(function(){
+            
+            //console.log('btn_tambah di click');
+            
+            $('#modal-masuk-barang').find('.modal-header').html('<center><b><h4>Tambah Masuk Barang</h4></b></center>');
+            $('#modal-masuk-barang').modal('show')
+                .find('#content-dlg-masuk-barang').load($(this).attr('value'));
+            
+        });
+JS;
+    $this->registerJs($js);
 ?>
