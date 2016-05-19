@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-
+        
         'toolbar'=> [
             ['content'=>
                 
@@ -144,15 +144,26 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php 
 
     $js= <<< JS
-        $(".btn_tambah").click(function(){
-            
+        this.modal = $('#modal-masuk-barang');
+        this.content = $('#modal-masuk-barang').find('.modal-body');
+
+        $(".btn_tambah").click(function(e){
+            e.preventDefault();
             //console.log('btn_tambah di click');
-            
+            clear();
             $('#modal-masuk-barang').find('.modal-header').html('<center><b><h4>Tambah Masuk Barang</h4></b></center>');
             $('#modal-masuk-barang').modal('show')
                 .find('#content-dlg-masuk-barang').load($(this).attr('value'));
             
         });
+
+        
+
+        var clear = function () {
+            $(this.modal).find('.modal-title').remove();
+            $(this.content).html("");
+            
+        };
 JS;
     $this->registerJs($js);
 ?>
