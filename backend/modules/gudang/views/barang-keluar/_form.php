@@ -18,6 +18,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
     <?= $form->field($model, 'kode_keluar')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'kategori_barang')->widget(Select2::classname(), [
+                                            
                                             'data' => $listKategori,
                                             'options' => ['placeholder' => 'Pilih Kategori Barang'],
                                             'pluginOptions' => [
@@ -116,3 +117,9 @@ use wbraganca\dynamicform\DynamicFormWidget;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+
+<?php
+
+
+?>

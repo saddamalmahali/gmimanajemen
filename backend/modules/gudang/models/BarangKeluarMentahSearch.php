@@ -5,12 +5,12 @@ namespace app\modules\gudang\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\modules\gudang\models\BarangKeluar;
+use app\modules\gudang\models\BarangKeluarMentah;
 
 /**
- * BarangKeluarSearch represents the model behind the search form about `app\modules\gudang\models\BarangKeluar`.
+ * BarangKeluarMentahSearch represents the model behind the search form about `app\modules\gudang\models\BarangKeluarMentah`.
  */
-class BarangKeluarSearch extends BarangKeluar
+class BarangKeluarMentahSearch extends BarangKeluarMentah
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class BarangKeluarSearch extends BarangKeluar
     public function rules()
     {
         return [
-            [['id_keluar'], 'integer'],
-            [['kode_keluar', 'kategori_barang', 'tanggal_keluar', 'keterangan'], 'safe'],
+            [['id', 'id_masuk_barang', 'kuantitas'], 'integer'],
+            [['kode_keluar', 'tanggal_keluar', 'keterangan'], 'safe'],
         ];
     }
 
@@ -41,9 +41,7 @@ class BarangKeluarSearch extends BarangKeluar
      */
     public function search($params)
     {
-        $query = BarangKeluar::find()->where(['like', 'kode_keluar', 'K-']);
-
-        // add conditions that should always apply here
+        $query = BarangKeluarMentah::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -57,14 +55,14 @@ class BarangKeluarSearch extends BarangKeluar
             return $dataProvider;
         }
 
-        // grid filtering conditions
         $query->andFilterWhere([
-            'id_keluar' => $this->id_keluar,
-            'tanggal_keluar' => $this->tanggal_keluar,
+            'id' => $this->id,
+            'id_masuk_barang' => $this->id_masuk_barang,
+            'kuantitas' => $this->kuantitas,
         ]);
 
         $query->andFilterWhere(['like', 'kode_keluar', $this->kode_keluar])
-            ->andFilterWhere(['like', 'kategori_barang', $this->kategori_barang])
+            ->andFilterWhere(['like', 'tanggal_keluar', $this->tanggal_keluar])
             ->andFilterWhere(['like', 'keterangan', $this->keterangan]);
 
         return $dataProvider;

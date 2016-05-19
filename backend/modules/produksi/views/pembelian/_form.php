@@ -95,7 +95,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                             ],
                                         ])->label(false) ?>
                                     </td>
-                                    
+                                   
                         			<td><?= $form->field($detilePembelian, "[{$i}]kuantitas")->textInput(['maxlength' => true])->label(false) ?></td>
                         			<td><?= $form->field($detilePembelian, "[{$i}]harga")->textInput(['maxlength' => true])->label(false) ?></td>
                         			<td><button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button></td>
