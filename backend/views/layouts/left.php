@@ -60,7 +60,7 @@
                     ]],
                     ['label' => 'Stok Barang', 'icon' => 'fa fa-retweet', 'url' => '#', 'items' => [
                         ['label' => 'Stok Bahan Kimia', 'icon' => 'fa fa-archive', 'url' => ['/gudang/stok-bahan-kimia']],
-                        ['label' => 'Barang Mentah', 'icon' => 'fa fa-building-o', 'url' => ['#']],
+                        ['label' => 'Barang Mentah', 'icon' => 'fa fa-building-o', 'url' => ['/gudang/stok-bahan-mentah']],
                         ['label' => 'Barang Jadi', 'icon' => 'fa fa-check-square-o', 'url' => ['#']],
                     ]],
 

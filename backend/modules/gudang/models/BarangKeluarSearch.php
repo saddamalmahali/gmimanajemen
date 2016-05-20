@@ -41,7 +41,7 @@ class BarangKeluarSearch extends BarangKeluar
      */
     public function search($params)
     {
-        $query = BarangKeluar::find()->where(['like', 'kode_keluar', 'K-']);
+        $query = BarangKeluar::find();
 
         // add conditions that should always apply here
 

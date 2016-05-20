@@ -107,6 +107,7 @@ class BarangKeluarController extends Controller
                     }
                 }catch(Exception $e){
                     $transaction->rollback();
+					Yii::$app->session->setFlash('warning', 'Data Barang Keluar Gagal tersimpan');
                 }
             }
 
