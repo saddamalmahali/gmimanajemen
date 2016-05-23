@@ -151,13 +151,12 @@ class BarangKeluarController extends Controller
     {
         $model = $this->findModel($id);
 
-        if(!is_null($model)){
+        
             $detile = $model->getDetileBarangKeluars()->all();
             if(DetileBarangKeluar::deleteAll(['id_barang_keluar'=>$model->id_keluar])){
                 $model->delete();
             }
-        }
-
+            
         return $this->redirect(['index']);
     }
 
