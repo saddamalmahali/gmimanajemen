@@ -87,5 +87,10 @@ where b.id_kategori like  'K-001' and  (dp.kuantitas - ifnull((select sum(bkm.ku
         return ArrayHelper::map($models, 'id_masuk', 'nama');
     }
 
+    public function ambilDataMasukBarang($id_masuk_barang){
+        $masukBarang = MasukBarang::find()->where(['id_masuk'=>$id_masuk_barang])->one();
+        return $masukBarang;
+    }
+
     
 }

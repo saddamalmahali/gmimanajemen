@@ -4,10 +4,13 @@ namespace app\modules\produksi\controllers;
 
 use Yii;
 use app\modules\produksi\models\Proses1;
+use app\modules\produksi\models\DetileProses1;
+use app\modules\gudang\models\MasukBarang;
 use app\modules\produksi\models\Proses1Search;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\data\ActiveDataProvider;
 
 /**
  * Proses1Controller implements the CRUD actions for Proses1 model.
@@ -51,8 +54,22 @@ class Proses1Controller extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        $barangKeluarMentah = $model->getBarangKeluarMentah($model->id_mentahan);
+        $masukBarang = $barangKeluarMentah->ambilDataMasukBarang($barangKeluarMentah->id_masuk_barang);
+        $pembelian = $masukBarang->getIdPembelian()->one();
+        $dataProvider = new ActiveDataProvider([
+                'query'=>$model->getDetileProses1(),
+                'pagination'=>[
+                    'pageSize'=>5
+                ]
+            ]);
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'barangKeluarMentah'=>$barangKeluarMentah,
+            'masukBarang'=>$masukBarang,
+            'pembelian'=>$pembelian,
+            'dataProvider'=>$dataProvider,
         ]);
     }
 
@@ -64,15 +81,34 @@ class Proses1Controller extends Controller
     public function actionCreate()
     {
         $model = new Proses1();
+        $detile = new DetileProses1();
 		$listKeluarBarang = $model->getListBarangKeluar();
+        $listBarangKeluarMentah = $model->getListBarangKeluarMentah();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-			Yii::$app->session->setFlash('success', 'Proses berhasil ditambahkan');
-            return $this->redirect('index');
+        if ($model->load(Yii::$app->request->post()) && $detile->load(Yii::$app->request->post())) {
+
+            if($model->save(false)){
+                $detile->tanggal = $model->tanggal;
+                $detile->id_proses_1 = $model->id;
+                $detile->keterangan = $model->keterangan;
+                if($detile->save(false)){
+                    Yii::$app->session->setFlash('success', 'Proses berhasil ditambahkan');
+                    return $this->redirect('index');
+                }else{
+                    Yii::$app->session->setFlash('danger', 'Gagal Menambahkan data kedalam Detile Proses1');
+                    return $this->redirect('index');
+                }
+            }else{
+                Yii::$app->session->setFlash('danger', 'Gagal Menambahkan kedalam Proses1');
+                return $this->redirect('index');
+            }
+			
         } else {
             return $this->renderAjax('create', [
                 'model' => $model,
-				'listKeluarBarang'=>$listKeluarBarang
+				'listKeluarBarang'=>$listKeluarBarang,
+                'listBarangKeluarMentah'=>$listBarangKeluarMentah,
+                'detile'=>$detile
             ]);
         }
     }

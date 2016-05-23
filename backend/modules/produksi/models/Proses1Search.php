@@ -18,7 +18,7 @@ class Proses1Search extends Proses1
     public function rules()
     {
         return [
-            [['id', 'id_barang_keluar', 'selesai'], 'integer'],
+            [['id',  'selesai'], 'integer'],
             [['tanggal', 'keterangan', 'kode_proses_1'], 'safe'],
         ];
     }
@@ -60,7 +60,6 @@ class Proses1Search extends Proses1
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'id_barang_keluar' => $this->id_barang_keluar,
             'tanggal' => $this->tanggal,
             'selesai' => $this->selesai,
 			'kode_proses_1'=> $this->kode_proses_1

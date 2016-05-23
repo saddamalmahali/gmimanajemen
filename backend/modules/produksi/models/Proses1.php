@@ -4,6 +4,7 @@ namespace app\modules\produksi\models;
 
 use Yii;
 use app\modules\gudang\models\BarangKeluar;
+use app\modules\gudang\models\BarangKeluarMentah;
 use yii\helpers\ArrayHelper;
 use yii\db\Query;
 
@@ -34,12 +35,13 @@ class Proses1 extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_barang_keluar', 'selesai', 'kode_proses_1'], 'required'],
-            [['id_barang_keluar', 'selesai'], 'integer'],
+            [['id_barang_keluar', 'selesai', 'kode_proses_1', 'id_mentahan'], 'required'],
+            [['id_barang_keluar', 'selesai', 'id_mentahan'], 'integer'],
 			[['kode_proses_1'], 'string', 'max'=>10],
             [['tanggal'], 'safe'],
             [['keterangan'], 'string', 'max' => 1024],
             [['id_barang_keluar'], 'exist', 'skipOnError' => true, 'targetClass' => BarangKeluar::className(), 'targetAttribute' => ['id_barang_keluar' => 'id_keluar']],
+            [['id_mentahan'], 'exist', 'skipOnError'=>true, 'targetClass'=>BarangKeluarMentah::classname(), 'targetAttribute'=>['id_mentahan'=>'id']],
         ];
     }
 
@@ -50,7 +52,7 @@ class Proses1 extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'id_barang_keluar' => 'Barang Keluar',
+            'id_mentahan' => 'Nota Pengeluaran Barang Mentah',
             'tanggal' => 'Tanggal',
             'keterangan' => 'Keterangan',
             'selesai' => 'Selesai',
@@ -64,15 +66,36 @@ class Proses1 extends \yii\db\ActiveRecord
     {
         return $this->hasOne(BarangKeluar::className(), ['id_keluar' => 'id_barang_keluar']);
     }
+
+    public function getDetileProses1()
+    {
+        return $this->hasMany(DetileProses1::className(), ['id_proses_1' => 'id']);
+    }
 	
 	public function getListBarangKeluar(){
 		$query = new Query();
         $query->select('id_barang_keluar')
-            ->from('proses_1');
+            ->from('detile_proses_1');
         $pembelian = $query->all();
 		
 		$barangKeluar = BarangKeluar::find()->asArray()->where(['not in', 'id_keluar', $query])->all();
 		
 		return ArrayHelper::map($barangKeluar, 'id_keluar', 'kode_keluar');
 	}
+
+    public function getListBarangKeluarMentah(){
+        $query = new Query();
+        $query->select('id_mentahan')
+            ->from('proses_1');
+        $barang_keluar = $query->all();
+        $barangMentahan = BarangKeluarMentah::find()->asArray()->where(['not in', 'id', $query])->all();
+
+        return ArrayHelper::map($barangMentahan, 'id', 'kode_keluar');
+    }
+
+    public function getBarangKeluarMentah($id_mentahan){
+        $dataBarangKeluarMentah = BarangKeluarMentah::find()->where(['id'=>$id_mentahan])->one();
+
+        return $dataBarangKeluarMentah;
+    }
 }

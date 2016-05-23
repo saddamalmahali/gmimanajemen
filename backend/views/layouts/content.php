@@ -36,7 +36,25 @@ use kartik\widgets\Growl;
             ]); 
         
             ?>
+        <?php }else if(Yii::$app->session->hasFlash('danger')){ ?>
+
+            <?= Growl::widget([
+                'type' => Growl::TYPE_DANGER,
+                'title' => 'Gagal',
+                'icon' => 'glyphicon glyphicon-info-sign',
+                'body' => Yii::$app->session->getFlash('danger'),
+                'showSeparator' => true,
+                'delay' => 1500,
+                'pluginOptions' => [
+                    'showProgressbar' => true,
+                    'placement' => [
+                        'from' => 'top',
+                        'align' => 'right',
+                    ]
+                ]
+            ]); ?>
         <?php } ?>
+
         <?= $content ?>
     </section>
 </div>
