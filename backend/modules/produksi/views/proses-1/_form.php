@@ -15,14 +15,16 @@ use kartik\widgets\DatePicker;
     <?php $form = ActiveForm::begin(); ?>
 	
 	<?= $form->field($model, 'kode_proses_1')->textInput(['maxLength' => 10]) ?>
+
 	
-    <?= $form->field($model, 'id_barang_keluar')->widget(Select2::classname(), [
-		'data' => $listKeluarBarang,
-	    'options' => ['placeholder' => 'Pilih Nota Barang Keluar'],
-	    'pluginOptions' => [
-	        'allowClear' => true
-	    ],
-	]) ?>
+	
+    <?= $form->field($model, 'id_mentahan')->widget(Select2::classname(), [
+					'data' => $listBarangKeluarMentah,
+				    'options' => ['placeholder' => 'Pilih Nota Barang Keluar'],
+				    'pluginOptions' => [
+				        'allowClear' => true
+				    ],
+				]) ?>
 
     <?= $form->field($model, 'tanggal')->widget(DatePicker::classname(),[
     	'name' => 'check_issue_date', 
@@ -37,7 +39,22 @@ use kartik\widgets\DatePicker;
 
     <?= $form->field($model, 'keterangan')->textArea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'selesai')->checkbox() ?>
+    
+    	<div class='panel panel-primary'>
+    		<div class="panel-heading"><center><b>Data Bahan Kimia</b></center></div>
+    		<div class="panel-body">
+    			<?= $form->field($detile, 'kode_terima') ?>     			
+
+    			<?= $form->field($detile, 'id_barang_keluar')->widget(Select2::classname(), [
+					'data' => $listKeluarBarang,
+				    'options' => ['placeholder' => 'Pilih Nota Barang Keluar'],
+				    'pluginOptions' => [
+				        'allowClear' => true
+				    ],
+				]) ?>			
+    		</div>   		
+    	</div>
+    
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

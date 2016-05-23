@@ -49,14 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'kartik\grid\SerialColumn'],
 			'kode_proses_1',
             //'id',
-            [
-				'attribute'=>'id_barang_keluar',
-				'format'=>'raw',
-				'value'=>function($model){
-					$barang = $model->getIdBarangKeluar()->one();
-					return $barang->kode_keluar;
-				}
-			],
+            
             [
 				'attribute'=>'tanggal',
 				'width'=>'20%',

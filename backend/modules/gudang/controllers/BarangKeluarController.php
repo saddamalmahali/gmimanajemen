@@ -155,6 +155,8 @@ class BarangKeluarController extends Controller
             $detile = $model->getDetileBarangKeluars()->all();
             if(DetileBarangKeluar::deleteAll(['id_barang_keluar'=>$model->id_keluar])){
                 $model->delete();
+            }else{
+                $model->delete();
             }
             
         return $this->redirect(['index']);
