@@ -40,7 +40,7 @@ class Proses1 extends \yii\db\ActiveRecord
 			[['kode_proses_1'], 'string', 'max'=>10],
             [['tanggal'], 'safe'],
             [['keterangan'], 'string', 'max' => 1024],
-            [['id_barang_keluar'], 'exist', 'skipOnError' => true, 'targetClass' => BarangKeluar::className(), 'targetAttribute' => ['id_barang_keluar' => 'id_keluar']],
+            
             [['id_mentahan'], 'exist', 'skipOnError'=>true, 'targetClass'=>BarangKeluarMentah::classname(), 'targetAttribute'=>['id_mentahan'=>'id']],
         ];
     }

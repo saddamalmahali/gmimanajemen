@@ -85,6 +85,17 @@ $this->params['breadcrumbs'][] = $this->title;
 						}
 						
 					},
+					'tambah'=>function ($url, $model) {
+						if($model->selesai){
+							return Html::button('<span class="glyphicon glyphicon-plus"></span>', ['value'=>Url::to(['/produksi/proses-1/update', 'id' => $model->id]), 'class' => 'btn btn-default btn-xs custom_button', 'disabled'=>true]);
+						}else{
+							return Html::button('<span class="glyphicon glyphicon-plus"></span>', ['value'=>Url::to(['/produksi/proses-1/update', 'id' => $model->id]), 'class' => 'btn btn-default btn-xs custom_button']);
+						}
+						
+					},
+					'view'=>function($url, $model){
+						return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, ['class'=>'btn btn-default btn-xs']);
+					}
 				]
             ],
         ],
