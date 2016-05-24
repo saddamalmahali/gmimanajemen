@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use kartik\detail\DetailView;
 use kartik\grid\GridView;
+use yii\data\ActiveDataProvider;
 /* @var $this yii\web\View */
 /* @var $model app\modules\produksi\models\Proses1 */
 
@@ -90,14 +91,45 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,                
                 'responsiveWrap'=>false,
+				
                 
                 
                 'columns' => [
                     ['class' => 'kartik\grid\SerialColumn'],
+					[
+						'class'=>'kartik\grid\ExpandRowColumn',
+						'detailRowCssClass'=>GridView::TYPE_DEFAULT,
+						'value'=>function($model, $key, $index, $column){
+							return GridView::ROW_COLLAPSED;
+						},
+						'detail'=>function($model, $key, $index){
+						   $barang_keluar = $model->getIdBarangKeluar()->one();
+						   $sql = $barang_keluar->getDetileBarangKeluars();
+						   
+
+							$dataProvider = new ActiveDataProvider([
+								'query' => $sql,
+							]);
+
+							return Yii::$app->controller->renderPartial('detile_barang_keluar', [
+								
+								'dataProvider'=>$dataProvider
+							]);
+
+						}
+					],
                     'kode_terima',
                     //'id',
                     'tanggal',
                     'id_barang_keluar',
+					[
+						'label'=> "Jumlah",
+						'value'=>function($model){
+							$barang_keluar = $model->getIdBarangKeluar()->one();
+							$sql = $barang_keluar->getDetileBarangKeluars()->sum('banyak');
+							return $sql;
+						}
+					],
                     'keterangan'
 
                     

@@ -2,6 +2,8 @@
 use yii\helpers\Html;
 //use yii\grid\GridView;
 use kartik\grid\GridView;	
+
+$this->title = "Daftar Stok Bahan Kimia";
 ?>
 
 <div class='stok-bahan-kimia-index'>

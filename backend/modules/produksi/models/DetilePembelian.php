@@ -33,10 +33,23 @@ class DetilePembelian extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_barang', 'kode_barang','kuantitas', 'harga', 'id_pembelian'], 'required'],
+            ['nama_barang', 'required', 'message'=>'Nama Barang Tidak Boleh Kosong!'],
+            ['kode_barang', 'required', 'message'=>'Kode Barang Tidak Boleh Kosong!'],
+            ['kuantitas', 'required', 'message'=>'Kuantitas Tidak Boleh Kosong!'],
+            ['harga', 'required', 'message'=>'Harga Tidak Boleh Kosong!'],
+            ['id_pembelian', 'required', 'message'=>'Silahkan Pilih Pembelian'],
             [['id_pembelian'], 'integer'],
+            ['kuantitas', 'required', 'when'=>function($model){
+                if($model->kode_barang == '0001'){
+                    return $model->kuantitas > 1000; 
+                }else{
+                    return $model->kuantitas > 0;
+                }
+                               
+            }],
+            [['kuantitas'], 'double'],
             [['kode_barang'], 'string', 'max'=>10],
-            [['nama_barang', 'kuantitas'], 'string', 'max' => 255],
+            [['nama_barang'], 'string', 'max' => 255],
             [['harga'], 'string', 'max' => 45],
             [['id_pembelian'], 'exist', 'skipOnError' => true, 'targetClass' => Pembelian::className(), 'targetAttribute' => ['id_pembelian' => 'id_pembelian']],
             [['kode_barang'], 'exist', 'skipOnError' => true, 'targetClass' => Barang::className(), 'targetAttribute' => ['kode_barang' => 'kode_barang']],
@@ -49,7 +62,7 @@ class DetilePembelian extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_detile_pembelian' => 'Id Detile Pembelian',
+            'id' => 'Id Detile Pembelian',
             'nama_barang' => 'Nama Barang',
             'kuantitas' => 'Kuantitas',
             'harga' => 'Harga',

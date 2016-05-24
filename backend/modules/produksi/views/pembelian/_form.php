@@ -13,7 +13,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
 <div class="pembelian-form">
 
-    <?php $form = ActiveForm::begin(['id'=>'dynamic-form']); ?>
+    <?php $form = ActiveForm::begin(['id'=>'dynamic-form', 'enableAjaxValidation'=>true]); ?>
 
     <?= $form->field($model, 'kode_pembelian')->textInput(['maxlength' => true]) ?>
 

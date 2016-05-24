@@ -12,16 +12,12 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="barang-create">
 
-	<div class='panel panel-primary'>
-        <div class='panel-heading'><center><b><?= Html::encode($this->title) ?></b></center></div>
-        <div class='panel-body'>
+	
         	<?= $this->render('_form', [
 		        'model' => $model,
 		        'listSatuan'=>$listSatuan,
 		        'listKategori'=>$listKategori,
 		    ]) ?>
-        </div>
-    </div>
 
     
     

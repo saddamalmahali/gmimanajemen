@@ -68,9 +68,10 @@ class BarangController extends Controller
         $listKategori = $model->getListKategori();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_barang]);
+            Yii::$app->session->setFlash('success', 'Barang Berhasil ditambahkan kedalam Database');
+            return $this->redirect(['index']);
         } else {
-            return $this->render('create', [
+            return $this->renderAjax('create', [
                 'model' => $model,
                 'listSatuan'=>$listSatuan,
                 'listKategori'=>$listKategori,
