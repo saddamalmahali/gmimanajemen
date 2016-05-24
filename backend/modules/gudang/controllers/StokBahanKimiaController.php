@@ -9,6 +9,8 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\SqlDataProvider;
 
+
+
 /**
  * BarangController implements the CRUD actions for Barang model.
  */
@@ -31,7 +33,7 @@ class StokBahanKimiaController extends Controller
 				where b.id_kategori='K-002'";
 
 		$sqlDataProvider = new SqlDataProvider([
-			'sql'=>$sql,
+			'sql'=>$sql
 		]);
 		return $this->render('index', [
 				'dataProvider'=>$sqlDataProvider,

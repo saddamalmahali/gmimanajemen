@@ -140,7 +140,15 @@ class PembelianController extends Controller
             $valid = $model->validate();
             $valid = ModelProduksi::validateMultiple($modelDetilePembelian) && $valid;
 
-            if(!$valid){
+            if (Yii::$app->request->isAjax) {
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                return ArrayHelper::merge(
+                    ActiveForm::validateMultiple($modelDetilePembelian),
+                    ActiveForm::validate($model)
+                );
+            }
+
+            if($valid){
                 $transaction = \Yii::$app->db->beginTransaction();
 
                 try{
