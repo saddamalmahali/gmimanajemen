@@ -44,7 +44,7 @@
 
                     ['label' => 'Proses', 'icon'=>'fa fa-line-chart', 'url'=>'#', 'items' => [
                         ['label' => 'Proses 1', 'icon' => 'fa fa-recycle', 'url' => ['/produksi/proses-1']],
-                        ['label' => 'Proses 2', 'icon' => 'fa fa-random', 'url' => ['#']],
+                        ['label' => 'Proses 2', 'icon' => 'fa fa-random', 'url' => ['/produksi/proses-2']],
                         ['label' => 'Finalisasi', 'icon' => 'fa fa-ship', 'url' => ['#']],
                     ]],
 
