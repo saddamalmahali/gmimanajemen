@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 24, 2016 at 11:18 AM
+-- Generation Time: May 24, 2016 at 11:44 AM
 -- Server version: 5.5.47-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.14
 
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `barang` (
   KEY `barang_satuan_idx` (`id_satuan`),
   KEY `barang_kategori_idx` (`id_kategori`),
   KEY `kode_barang_idx` (`kode_barang`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=56 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=86 ;
 
 --
 -- Dumping data for table `barang`
@@ -98,7 +98,37 @@ INSERT INTO `barang` (`id_barang`, `id_satuan`, `kode_barang`, `nama_barang`, `k
 (52, 'ST0001', '0018', 'GARAM', '', 'K-002'),
 (53, 'ST0001', '0019', 'MIMOSA / SETASUN MIMOSA', '', 'K-002'),
 (54, 'ST0001', '0021', 'LIFSOL E', '', 'K-002'),
-(55, 'ST0001', '0022', 'CFH', '', 'K-002');
+(55, 'ST0001', '0022', 'CFH', '', 'K-002'),
+(56, 'ST0001', '0025', 'SAVINTAN R7', '', 'K-002'),
+(57, 'ST0001', '0026', 'SAVINTAN ROS', '', 'K-002'),
+(58, 'ST0001', '0027', 'SAVINTAN RD', '', 'K-002'),
+(59, 'ST0001', '0029', 'SETAMOL WS / TAMOL NN', '', 'K-002'),
+(60, 'ST0001', '0030', 'CELUP TAN AYII', '', 'K-002'),
+(61, 'ST0001', '0032', 'CELUP HITAM AYI / BLACK AYI', '', 'K-002'),
+(62, 'ST0001', '0033', 'CELUP COKLAT AYI', '', 'K-002'),
+(63, 'ST0001', '0036', 'CELUP BLACK GP', '', 'K-002'),
+(64, 'ST0001', '0037', 'GINSOL SWK / SOFCON SWK', '', 'K-002'),
+(65, 'ST0001', '0038', 'SEDAFLOR LC / SL 13 / SQ', '', 'K-002'),
+(66, 'ST0001', '0039', 'SEROIL FX', '', 'K-002'),
+(67, 'ST0001', '0040', 'CROWN LAK/LAK LW', '', 'K-002'),
+(68, 'ST0001', '0041', 'PNE / PENETRATOR 425', '', 'K-002'),
+(69, 'ST0001', '0042', 'RE 2952', '', 'K-002'),
+(70, 'ST0001', '0044', 'CAT PUTIH / WHITE V 1S 1020', '', 'K-002'),
+(71, 'ST0001', '0045', 'CAT COKLAT', '', 'K-002'),
+(72, 'ST0001', '0080', 'FONDOFLEX', '', 'K-002'),
+(73, 'ST0001', '0081', 'CUKA SINTAS', '', 'K-002'),
+(74, 'ST0001', '0082', 'LAK LS FG / HOTMAN / LAK BENING', '', 'K-002'),
+(75, 'ST0001', '0083', 'LP 4103 / BI', '', 'K-002'),
+(76, 'ST0001', '0046', 'CAT KUNING MAS', '', 'K-002'),
+(77, 'ST0001', '0048', 'CAT MERAH CABE', '', 'K-002'),
+(78, 'ST0001', '0049', 'AQUAFIL / STUCCO PERFELLI 501', '', 'K-002'),
+(79, 'ST0001', '0050', 'ACRILON', '', 'K-002'),
+(80, 'ST0001', '0051', 'SB 100', '', 'K-002'),
+(81, 'ST0001', '0052', 'RESICRYL 5986 / RA 2356', '', 'K-002'),
+(82, 'ST0001', '0053', 'WAXTOP B / MELIO TOP', '', 'K-002'),
+(83, 'ST0001', '0055', 'TINER BA', '', 'K-002'),
+(84, 'ST0001', '0056', 'KS THINNER AM', '', 'K-002'),
+(85, 'ST0001', '0057', 'KS AIR', '', 'K-002');
 
 -- --------------------------------------------------------
 
