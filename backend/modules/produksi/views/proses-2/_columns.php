@@ -1,5 +1,6 @@
 <?php
 use yii\helpers\Url;
+use yii\helpers\Html;
 
 return [
     [
@@ -38,6 +39,7 @@ return [
         'class' => 'kartik\grid\ActionColumn',
         'dropdown' => false,
         'vAlign'=>'middle',
+        'template'=>'{update} {view}',
         'urlCreator' => function($action, $model, $key, $index) { 
                 return Url::to([$action,'id'=>$key]);
         },
@@ -48,7 +50,19 @@ return [
                           'data-request-method'=>'post',
                           'data-toggle'=>'tooltip',
                           'data-confirm-title'=>'Are you sure?',
-                          'data-confirm-message'=>'Are you sure want to delete this item'], 
+                          'data-confirm-message'=>'Are you sure want to delete this item'],
+
+        'buttons'=>[
+            'update'=>function ($url, $model) {
+                        if($model->selesai){
+                            return Html::button('<span class="glyphicon glyphicon-pencil"></span>', ['value'=>Url::to(['/produksi/proses-2/update', 'id' => $model->id]), 'class' => 'btn btn-default btn-xs custom_button', 'disabled'=>true]);
+                        }else{
+                            return Html::button('<span class="glyphicon glyphicon-pencil"></span>', ['value'=>Url::to(['/produksi/proses-2/update', 'id' => $model->id]), 'class' => 'btn btn-default btn-xs custom_button']);
+                        }
+                        
+                    },
+
+        ] 
     ],
 
 ];   

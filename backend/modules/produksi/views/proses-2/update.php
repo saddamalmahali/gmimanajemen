@@ -7,7 +7,7 @@ use yii\helpers\Html;
 ?>
 <div class="proses2-update">
 
-    <?= $this->render('_form', [
+    <?= $this->render('_form_update', [
         'model' => $model,
     ]) ?>
 

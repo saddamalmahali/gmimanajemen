@@ -13,25 +13,9 @@ use kartik\widgets\DatePicker;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id_proses_1')->widget(Select2::classname(), [
-		'data'=>$data_proses_1,
-		'options'=>['placeholder'=>'Pilih Proses 1'],
-		'pluginOptions'=>[
-			'autoClose'=>true,
-		]
-	]) ?>
+    
 
-    <?= $form->field($model, 'kode_proses')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'tanggal')->widget(DatePicker::classname(), [
-		'value'=> date('yyyy-mm-dm', strtotime('+2 days')),
-		'options'=>['placeholder'=>'Pilih Tanggal'],
-		'pluginOptions'=>[
-			'autoclose'=>true,
-			'format'=>'yyyy-mm-dd',
-			'todayHighlight'=>true
-		]
-	]) ?>
+    
 
     <?= $form->field($model, 'keterangan')->textArea(['rows' => 4]) ?>
 

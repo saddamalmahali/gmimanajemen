@@ -4,6 +4,7 @@ namespace app\modules\produksi\models;
 
 use Yii;
 use yii\helpers\ArrayHelper;
+use yii\db\Query;
 
 /**
  * This is the model class for table "proses_2".
@@ -76,7 +77,11 @@ class Proses2 extends \yii\db\ActiveRecord
     }
 	
 	public function getListProses1(){
-		$data_proses = Proses1::find()->asArray()->where(['selesai'=>1])->all();
+        $query = new Query();
+        $query->select('id_proses_1')
+            ->from('proses_2');
+        $proses_1 = $query->all();
+		$data_proses = Proses1::find()->asArray()->where(['not in', 'id', $query])->all();
 		
 		return ArrayHelper::map($data_proses, 'id', 'kode_proses_1');
 	}
