@@ -41,7 +41,7 @@ CrudAsset::register($this);
             'panel' => [
                 'type' => 'primary', 
                 'heading' => '<i class="glyphicon glyphicon-list"></i>   '.$this->title,
-                
+                'before'=> $this->render('_search', ['model' => $searchModel]),
                 'after'=>BulkButtonWidget::widget([
                             'buttons'=>Html::a('<i class="glyphicon glyphicon-trash"></i>&nbsp; Delete All',
                                 ["bulk-delete"] ,

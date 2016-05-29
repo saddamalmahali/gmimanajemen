@@ -5,6 +5,7 @@ namespace app\modules\keuangan\models;
 use Yii;
 use app\modules\produksi\models\Pembelian;
 use yii\helpers\ArrayHelper;
+use yii\db\Query;
 
 /**
  * This is the model class for table "bayar_kredit".
@@ -67,7 +68,17 @@ class BayarKredit extends \yii\db\ActiveRecord
     }
 	
 	public function getPembelianKredit(){
-		$pembelian = Pembelian::find()->asArray()->where(['kredit'=>1])->all();
+		
+		$query = new Query();
+		$query = $query->select('id_pembelian')
+				->from('status_cicilan_pembelian')
+				->where(['status'=>1]);
+		
+		$pembelian = Pembelian::find()
+						->asArray()
+						->where(['kredit'=>1])
+						->andWhere(['not in', 'id_pembelian', $query])
+						->all();
 		
 		return ArrayHelper::map($pembelian, 'kode_pembelian', 'kode_pembelian');
 	}
