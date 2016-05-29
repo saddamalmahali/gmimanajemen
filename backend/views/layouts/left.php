@@ -34,7 +34,10 @@
                     ['label' => 'Satuan', 'icon' => 'fa fa-gift', 'url' => ['/preferences/satuan']],
                     ['label' => 'Konversi Satuan', 'icon' => 'fa fa-balance-scale', 'url' => ['/preferences/konversi-satuan']],
 
-
+					['label' => 'Gudang', 'options' => ['class' => 'header']],
+					['label' => 'Pembayaran Kredit', 'icon' => 'fa fa-credit-card', 'url' => ['/keuangan/bayar-kredit']],
+					
+					
                     ['label' => 'Bagian Produksi', 'options' => ['class' => 'header']],
                     ['label' => 'Dashboard', 'icon' => 'fa fa-desktop', 'url' => ['/produksi']],
                     ['label' => 'Transaksi', 'icon' => 'fa fa-money', 'url' => '#', 'items' => [

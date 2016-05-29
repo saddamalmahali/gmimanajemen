@@ -6,6 +6,7 @@ use Yii;
 use app\modules\produksi\models\Supplier;
 use yii\helpers\ArrayHelper;
 use app\modules\gudang\models\Barang;
+use app\modules\keuangan\models\StatusCicilanPembelian;
 
 /**
  * This is the model class for table "pembelian".
@@ -86,6 +87,11 @@ class Pembelian extends \yii\db\ActiveRecord
     public function getDetilePembelians()
     {
         return $this->hasMany(DetilePembelian::className(), ['id_pembelian' => 'id_pembelian']);
+    }
+	
+	public function getStatusCicilanPembelian()
+    {
+        return $this->hasMany(StatusCicilanPembelian::className(), ['id_pembelian' => 'id_pembelian']);
     }
 
     /**
