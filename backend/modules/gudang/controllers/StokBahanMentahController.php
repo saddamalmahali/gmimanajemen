@@ -15,12 +15,12 @@ use yii\data\SqlDataProvider;
 class StokBahanMentahController extends Controller
 {
 	public function actionIndex(){
-		$sql="select  mb.kode_masuk, mb.id_masuk, p.kode_pembelian, s.nama, dp.kuantitas,
+		$sql="select mb.kode_masuk, mb.id_masuk, p.kode_pembelian, s.nama, dp.kuantitas,
 					@sisa := dp.kuantitas - ifnull((select sum(bkm.kuantitas) from barang_keluar_mentah bkm where bkm.id_masuk_barang = mb.id_masuk), 0) 
 				    as sisa
 				from masuk_barang mb 
-				inner join pembelian p on p.id_pembelian = mb.id_pembelian 
-				join supplier s on s.kode = p.kode_supplier
+				right join pembelian p on p.id_pembelian = mb.id_pembelian 
+				right join supplier s on s.kode = p.kode_supplier
 				right join detile_pembelian dp on dp.id_pembelian = p.id_pembelian
 				 right join barang b on b.kode_barang = dp.kode_barang
 				join (select @sisa := 0) v

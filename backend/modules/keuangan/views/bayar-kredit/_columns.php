@@ -17,22 +17,32 @@ return [
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'kode_pembelian',
+		'hAlign'=>'center'
+    ],
+	[
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'cicilan_ke',
+		'hAlign'=>'center'
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'tanggal',
+		'hAlign'=>'center'
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'jumlah_bayar',
+		'hAlign'=>'center'
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'keterangan',
+		'hAlign'=>'center'
     ],
     [
         'class' => 'kartik\grid\ActionColumn',
         'dropdown' => false,
+		'template'=>'{view} {delete}',
         'vAlign'=>'middle',
         'urlCreator' => function($action, $model, $key, $index) { 
                 return Url::to([$action,'id'=>$key]);

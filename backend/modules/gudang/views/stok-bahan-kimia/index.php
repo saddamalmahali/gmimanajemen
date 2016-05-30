@@ -7,12 +7,13 @@ $this->title = "Daftar Stok Bahan Kimia";
 ?>
 
 <div class='stok-bahan-kimia-index'>
+	
 	<?= GridView::widget([
 			'dataProvider' => $dataProvider,
-			
 	        'panel'=>[
 	            'type'=>GridView::TYPE_PRIMARY,
 	            'heading'=>'<center><b>Daftar Stok Barang</b></center>',
+				'before'=>$this->render('_search', ['model' => $searchProvider]),
 	        ],
 	        'columns'=>[
 	        	['class' => 'yii\grid\SerialColumn'],

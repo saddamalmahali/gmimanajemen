@@ -55,9 +55,9 @@ return [
         'buttons'=>[
             'update'=>function ($url, $model) {
                         if($model->selesai){
-                            return Html::button('<span class="glyphicon glyphicon-pencil"></span>', ['value'=>Url::to(['/produksi/proses-2/update', 'id' => $model->id]), 'class' => 'btn btn-default btn-xs custom_button', 'disabled'=>true]);
+                            return Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['value'=>Url::to(['/produksi/proses-2/update', 'id' => $model->id]), 'class' => 'btn btn-default btn-xs custom_button', 'disabled'=>true]);
                         }else{
-                            return Html::button('<span class="glyphicon glyphicon-pencil"></span>', ['value'=>Url::to(['/produksi/proses-2/update', 'id' => $model->id]), 'class' => 'btn btn-default btn-xs custom_button']);
+                            return Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['value'=>Url::to(['/produksi/proses-2/update', 'id' => $model->id]), 'class' => 'btn btn-default btn-xs custom_button']);
                         }
                         
                     },

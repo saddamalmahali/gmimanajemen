@@ -19,7 +19,7 @@ class BayarKreditSearch extends BayarKredit
     {
         return [
             [['id'], 'integer'],
-            [['kode_pembelian', 'tanggal', 'keterangan'], 'safe'],
+            [['kode_pembelian', 'tanggal', 'cicilan_ke', 'keterangan'], 'safe'],
             [['jumlah_bayar'], 'number'],
         ];
     }
@@ -46,6 +46,9 @@ class BayarKreditSearch extends BayarKredit
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+			'pagination'=>[
+				'pageSize'=>10,
+			]
         ]);
 
         $this->load($params);
@@ -59,12 +62,15 @@ class BayarKreditSearch extends BayarKredit
         $query->andFilterWhere([
             'id' => $this->id,
             'tanggal' => $this->tanggal,
+			'cicilan_ke'=>$this->cicilan_ke,
             'jumlah_bayar' => $this->jumlah_bayar,
         ]);
 
         $query->andFilterWhere(['like', 'kode_pembelian', $this->kode_pembelian])
+			->andFilterWhere(['like', 'cicilan_ke', $this->cicilan_ke])
             ->andFilterWhere(['like', 'keterangan', $this->keterangan]);
-
+		
+		$query->orderBy(['cicilan_ke'=>'asc']);
         return $dataProvider;
     }
 }

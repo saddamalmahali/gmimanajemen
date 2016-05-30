@@ -10,17 +10,20 @@ use kartik\widgets\DatePicker;
 
 <div class="bayar-kredit-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+		'enableAjaxValidation' => true,
+	]); ?>
 
-    <?= $form->field($model, 'kode_pembelian')->widget(Select2::classname(), [
+    <?= $form->field($model, 'kode_pembelian', ['enableAjaxValidation' => true])->widget(Select2::classname(), [
 		'data'=>$listPembelian,
 		'options'=>['placeholder'=>'Pilih Nota Pembelian'],
 		'pluginOptions'=>[
-			'autoClose'=>true
+			'autoClose'=>true,
+			'allowClear'=>true
 		],
 	]) ?>
 
-    <?= $form->field($model, 'tanggal')->widget(DatePicker::classname(),[
+    <?= $form->field($model, 'tanggal', ['enableAjaxValidation' => true])->widget(DatePicker::classname(),[
 		'value'=>date('yyyy-mm-dd', strtotime('+2 days')), 
 		'options'=>['placeholder'=>'Pilih Tanggal'],
 		'pluginOptions'=>[
@@ -30,11 +33,11 @@ use kartik\widgets\DatePicker;
 		]
 	]) ?>
 
-    <?= $form->field($model, 'cicilan_ke')->textInput() ?>
+    <?= $form->field($model, 'cicilan_ke', ['enableAjaxValidation' => true])->textInput() ?>
 	
-	<?= $form->field($model, 'jumlah_bayar')->textInput() ?>
+	<?= $form->field($model, 'jumlah_bayar', ['enableAjaxValidation' => true])->textInput() ?>
 
-    <?= $form->field($model, 'keterangan')->textArea(['rows' => 6]) ?>
+    <?= $form->field($model, 'keterangan', ['enableAjaxValidation' => true])->textArea(['rows' => 6]) ?>
 
   
 	<?php if (!Yii::$app->request->isAjax){ ?>

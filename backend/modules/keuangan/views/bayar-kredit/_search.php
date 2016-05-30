@@ -9,20 +9,26 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="pembelian-search">
-	<div class='col-md-6'>
-		<?php $form = ActiveForm::begin([
-			'action' => ['index'],
-			'method' => 'get',
-		]); ?>
+	<div class='col-md-8'>
+		
+			<?php $form = ActiveForm::begin([
+				'action' => ['index'],
+				'method' => 'get',
+			]); ?>
+			<div class='col-md-10'>
+				<?= $form->field($model, 'kode_pembelian')->textInput([
+					'options'=>['placeholder'=>"Cari Data Menurut Kode Pembelian"],
+				])->label(false) ?>
+			</div>
+			<div class='col-md-2'>
+					<?= Html::submitButton('<span class="fa fa-search"></span>', ['class' => 'btn btn-primary']) ?>
+			</div>
+			
 
-		<?= $form->field($model, 'kode_pembelian') ?>
+			
 
-		<div class="form-group">
-			<?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-			<?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
-		</div>
-
-		<?php ActiveForm::end(); ?>
+			<?php ActiveForm::end(); ?>
+		
 	</div>
     
 

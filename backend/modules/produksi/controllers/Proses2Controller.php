@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use \yii\web\Response;
 use yii\helpers\Html;
+use yii\data\ActiveDataProvider;
 
 /**
  * Proses2Controller implements the CRUD actions for Proses2 model.
@@ -55,6 +56,11 @@ class Proses2Controller extends Controller
      */
     public function actionView($id)
     {   
+		$model = $this->findModel($id);
+		$detile = $model->getDetileProses2s();
+		$dataProvider = new ActiveDataProvider([
+			'query'=> $detile,
+		]);
         $request = Yii::$app->request;
         if($request->isAjax){
             Yii::$app->response->format = Response::FORMAT_JSON;
@@ -62,13 +68,15 @@ class Proses2Controller extends Controller
                     'title'=> "Proses2 #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $this->findModel($id),
+						'detile'=> $dataProvider,
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-primary','role'=>'modal-remote'])
                 ];    
         }else{
             return $this->render('view', [
-                'model' => $this->findModel($id),
+                'model' => $model,
+				'detile'=> $dataProvider,
             ]);
         }
     }
