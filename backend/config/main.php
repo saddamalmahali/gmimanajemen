@@ -18,6 +18,9 @@ return [
         'produksi' => [
             'class' => 'app\modules\produksi\Module',
         ],
+		'keuangan' => [
+            'class' => 'app\modules\keuangan\Module',
+        ],
         'gudang' => [
             'class' => 'app\modules\gudang\Module',
         ],

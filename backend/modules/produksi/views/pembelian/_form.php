@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use kartik\widgets\Select2;
 use kartik\widgets\DatePicker;
 use wbraganca\dynamicform\DynamicFormWidget;
+use yii\web\Response;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\produksi\models\Pembelian */
@@ -38,7 +39,15 @@ use wbraganca\dynamicform\DynamicFormWidget;
 	    ],
     ]) ?>
 
+    
 
+    <?= $form->field($model, 'kredit')->checkbox(['id'=>'pembelian_kredit']) ?>
+
+    <div class='panel bg-warning panel-kredit'>
+        Halo Ini Panel Detile Kredit
+    </div>
+
+    <br />
  
              <?php DynamicFormWidget::begin([
                 'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
@@ -120,8 +129,20 @@ use wbraganca\dynamicform\DynamicFormWidget;
 </div>
 
 <?php 
-    $this->registerJs("
+$js = <<< JS
+    $(".panel-kredit").hide();
 
-
-        ");
+    $("#pembelian_kredit").change(function(){
+       console.log("aksi checkbox");
+       var nilai = $(this);
+         
+        if ($("#pembelian_kredit").is(":checked")) {
+            $(".panel-kredit").show(500);
+        } else {
+            $(".panel-kredit").hide(500);
+        }
+        
+    });
+JS;
+    $this->registerJs($js);
 ?>

@@ -5,6 +5,7 @@ namespace app\modules\produksi\controllers;
 use Yii;
 use app\modules\produksi\models\Pembelian;
 use app\modules\produksi\models\DetilePembelian;
+use app\modules\keuangan\models\StatusCicilanPembelian;
 
 use app\modules\produksi\models\ModelProduksi;
 use app\modules\produksi\models\PembelianSearch;
@@ -13,6 +14,9 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
 use yii\data\ActiveDataProvider;
+use yii\web\Response;
+use yii\helpers\ArrayHelper;
+use yii\widgets\ActiveForm;
 
 /**
  * PembelianController implements the CRUD actions for Pembelian model.
@@ -148,11 +152,17 @@ class PembelianController extends Controller
                 );
             }
 
-            if($valid){
+            if(!$valid){
                 $transaction = \Yii::$app->db->beginTransaction();
 
                 try{
                     if($flag = $model->save(false)){
+						$status = new StatusCicilanPembelian();
+						
+						$status->id_pembelian = $model->id_pembelian;
+						$status->status = 0;
+						$status->save();
+						
                         foreach ($modelDetilePembelian as $detilePembelian) {
                             $detilePembelian->id_pembelian = $model->id_pembelian;
                             $kode_barang = $detilePembelian->kode_barang;
@@ -225,15 +235,36 @@ class PembelianController extends Controller
     {
         $model_pembelian = $this->findModel($id);
         $model_detile_pembelian = $model_pembelian->getDetilePembelians()->all();
+		$list_status = $model_pembelian->getStatusCicilanPembelian()->all();
 
         if(!is_null($model_detile_pembelian)){
            foreach($model_detile_pembelian as $pembelian ){
                 $pembelian->delete();
            }
+		   
+		   if(!is_null($list_status)){
+			   foreach($list_status as $status ){
+					$status->delete();
+			   }
+			   $model_pembelian->delete();
+		   }else{
+			   $model_pembelian->delete();
+		   }
+		   
 
-        }
+        }else{
+			if(!is_null($list_status)){
+			   foreach($list_status as $status ){
+					$status->delete();
+			   }
+			   $model_pembelian->delete();
+		   }else{
+			   $model_pembelian->delete();
+		   }
+			
+		}
 
-        $model_pembelian->delete();
+        
 
         return $this->redirect(['index']);
     }

@@ -34,7 +34,10 @@
                     ['label' => 'Satuan', 'icon' => 'fa fa-gift', 'url' => ['/preferences/satuan']],
                     ['label' => 'Konversi Satuan', 'icon' => 'fa fa-balance-scale', 'url' => ['/preferences/konversi-satuan']],
 
-
+					['label' => 'Gudang', 'options' => ['class' => 'header']],
+					['label' => 'Pembayaran Kredit', 'icon' => 'fa fa-credit-card', 'url' => ['/keuangan/bayar-kredit']],
+					
+					
                     ['label' => 'Bagian Produksi', 'options' => ['class' => 'header']],
                     ['label' => 'Dashboard', 'icon' => 'fa fa-desktop', 'url' => ['/produksi']],
                     ['label' => 'Transaksi', 'icon' => 'fa fa-money', 'url' => '#', 'items' => [
@@ -44,7 +47,7 @@
 
                     ['label' => 'Proses', 'icon'=>'fa fa-line-chart', 'url'=>'#', 'items' => [
                         ['label' => 'Proses 1', 'icon' => 'fa fa-recycle', 'url' => ['/produksi/proses-1']],
-                        ['label' => 'Proses 2', 'icon' => 'fa fa-random', 'url' => ['#']],
+                        ['label' => 'Proses 2', 'icon' => 'fa fa-random', 'url' => ['/produksi/proses-2']],
                         ['label' => 'Finalisasi', 'icon' => 'fa fa-ship', 'url' => ['#']],
                     ]],
 
