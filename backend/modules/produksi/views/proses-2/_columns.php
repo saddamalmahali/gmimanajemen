@@ -53,12 +53,17 @@ return [
                           'data-confirm-message'=>'Are you sure want to delete this item'],
 
         'buttons'=>[
-            'update'=>function ($url, $model) {
-                        if($model->selesai){
-                            return Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['value'=>Url::to(['/produksi/proses-2/update', 'id' => $model->id]), 'class' => 'btn btn-default btn-xs custom_button', 'disabled'=>true]);
-                        }else{
-                            return Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['value'=>Url::to(['/produksi/proses-2/update', 'id' => $model->id]), 'class' => 'btn btn-default btn-xs custom_button']);
-                        }
+            'update'=>function ($url, $model, $key) {
+                    $disabled = $model->selesai;
+                    $options = [
+                                    'role'=>'modal-remote',
+                                    'title'=>'Update', 
+                                    'data-toggle'=>'tooltip', 
+                                    'style'=> $disabled == true ? 'display: none' : '',
+                                ];
+                        
+                    return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, $options);
+                        
                         
                     },
 
