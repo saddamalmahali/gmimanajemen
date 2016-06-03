@@ -68,6 +68,7 @@ class Proses2Controller extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
                     'title'=> "Proses2 #".$id,
+                    'size'=>'large',
                     'content'=>$this->renderAjax('view', [
                         'model' => $this->findModel($id),
 						'detile'=> $dataProvider,

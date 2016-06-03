@@ -22,6 +22,8 @@ CrudAsset::register($this);
             'id'=>'crud-datatable',
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
+            'responsive'=>true,
+            'responsiveWrap'=>true,
             'pjax'=>true,
             'columns' => require(__DIR__.'/_columns.php'),
             'toolbar'=> [
