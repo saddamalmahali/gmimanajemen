@@ -77,10 +77,17 @@ class Proses1 extends \yii\db\ActiveRecord
         $query->select('id_barang_keluar')
             ->from('detile_proses_1');
         $pembelian = $query->all();
-		
-		$barangKeluar = BarangKeluar::find()->asArray()->where(['not in', 'id_keluar', $query])->all();
-		
-		return ArrayHelper::map($barangKeluar, 'id_keluar', 'kode_keluar');
+
+        $query2 = new Query();
+        $query2->select('id_keluar_barang')
+            ->from('detile_proses_2');
+        
+        $barangKeluar = BarangKeluar::find()->asArray()
+                                ->where(['not in', 'id_keluar', $query])
+                                ->andWhere(['not in', 'id_keluar', $query2])
+                                ->all();
+        
+        return ArrayHelper::map($barangKeluar, 'id_keluar', 'kode_keluar');
 	}
 
     public function getListBarangKeluarMentah(){

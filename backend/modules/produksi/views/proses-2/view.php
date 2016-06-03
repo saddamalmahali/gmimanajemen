@@ -15,7 +15,9 @@ use kartik\grid\GridView;
                 'mode'=>DetailView::MODE_VIEW,
                 'panel'=>[
                     'heading'=>'Rincian Proses2 # ' . $model->kode_proses,
-                    'type'=>DetailView::TYPE_INFO,
+                    'headingOptions'=>[
+                    	'template'=>'{title}'
+                    ]
                 ],
         'attributes' => [
             

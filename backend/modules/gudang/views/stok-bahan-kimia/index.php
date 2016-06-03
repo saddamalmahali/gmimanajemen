@@ -2,12 +2,13 @@
 use yii\helpers\Html;
 //use yii\grid\GridView;
 use kartik\grid\GridView;	
+use yii\widgets\Pjax;
 
 $this->title = "Daftar Stok Bahan Kimia";
 ?>
 
 <div class='stok-bahan-kimia-index'>
-	
+	<?php Pjax::begin(); ?>
 	<?= GridView::widget([
 			'dataProvider' => $dataProvider,
 	        'panel'=>[
@@ -37,5 +38,7 @@ $this->title = "Daftar Stok Bahan Kimia";
 		])
 
 	?>
+
+	<?php Pjax::end(); ?>
 
 </div>

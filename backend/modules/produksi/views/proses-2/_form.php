@@ -33,9 +33,27 @@ use kartik\widgets\DatePicker;
 		]
 	]) ?>
 
-    <?= $form->field($model, 'keterangan')->textArea(['rows' => 4]) ?>
+	
 
-    <?= $form->field($model, 'selesai')->checkbox() ?>
+
+    <div class='panel panel-primary'>
+    	<div class='panel-heading'><center><b>Detile Bahan Kimia</b></center></div>
+    	<div class='panel-body'>
+    		<?= $form->field($detile_proses2, 'kode_terima')->textInput(['maxlength'=>true]) ?>
+    		<?= $form->field($detile_proses2, 'id_keluar_barang')->widget(Select2::classname(), [
+					'data'=>$list_barang_keluar,
+					'options'=>['placeholder'=>'Pilih Nota Barang Keluar'],
+					'pluginOptions'=>[
+						'allowClear'=>true
+					]
+			]) ?>	
+
+		    <?= $form->field($model, 'keterangan')->textArea(['rows' => 4]) ?>
+
+		    <?= $form->field($model, 'selesai')->checkbox() ?>
+    	<div>
+
+    </div>
 
   
 	<?php if (!Yii::$app->request->isAjax){ ?>

@@ -4,6 +4,8 @@ namespace app\modules\produksi\models;
 
 use Yii;
 use yii\helpers\ArrayHelper;
+use app\modules\gudang\models\BarangKeluar;
+
 use yii\db\Query;
 
 /**
@@ -74,6 +76,24 @@ class Proses2 extends \yii\db\ActiveRecord
     public function getIdProses1()
     {
         return $this->hasOne(Proses1::className(), ['id' => 'id_proses_1']);
+    }
+
+    public function getListBarangKeluar(){
+        $query = new Query();
+        $query->select('id_barang_keluar')
+            ->from('detile_proses_1');
+        $pembelian = $query->all();
+
+        $query2 = new Query();
+        $query2->select('id_keluar_barang')
+            ->from('detile_proses_2');
+        
+        $barangKeluar = BarangKeluar::find()->asArray()
+                                ->where(['not in', 'id_keluar', $query])
+                                ->andWhere(['not in', 'id_keluar', $query2])
+                                ->all();
+        
+        return ArrayHelper::map($barangKeluar, 'id_keluar', 'kode_keluar');
     }
 	
 	public function getListProses1(){

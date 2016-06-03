@@ -4,6 +4,8 @@ namespace app\modules\produksi\controllers;
 
 use Yii;
 use app\modules\produksi\models\Proses2;
+use app\modules\produksi\models\DetileProses2;
+
 use app\modules\produksi\models\Proses2Search;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -92,6 +94,8 @@ class Proses2Controller extends Controller
         $request = Yii::$app->request;
         $model = new Proses2();
 		$data_proses_1 = $model->getListProses1();
+        $list_barang_keluar = $model->getListBarangKeluar();
+        $detile_proses2 = new DetileProses2();
 
         if($request->isAjax){
             /*
@@ -100,24 +104,34 @@ class Proses2Controller extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Create new Proses2",
+                    'title'=> "Tambah Proses 2",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
 						'data_proses_1'=>$data_proses_1,
+                        'list_barang_keluar'=>$list_barang_keluar,
+                        'detile_proses2'=>$detile_proses2,
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
         
                 ];         
-            }else if($model->load($request->post()) && $model->save()){
-                return [
-                    'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "Create new Proses2",
-                    'content'=>'<span class="text-success">Create Proses2 success</span>',
-                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                            Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote'])
-        
-                ];         
+            }else if($model->load($request->post()) && $detile_proses2->load($request->post())){
+
+                    if($model->save()){
+                        $detile_proses2->id_proses_2 = $model->id;
+                        $detile_proses2->tanggal = $model->tanggal;
+                        $detile_proses2->keterangan = $model->keterangan;
+                        $detile_proses2->save();
+                        return [
+                            'forceReload'=>'#crud-datatable-pjax',
+                            'title'=> "Create new Proses2",
+                            'content'=>'<span class="text-success">Create Proses2 success</span>',
+                            'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+                                    Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote'])
+                
+                        ]; 
+                    }
+                        
             }else{           
                 return [
                     'title'=> "Create new Proses2",

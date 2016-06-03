@@ -3,7 +3,7 @@
 namespace app\modules\produksi\models;
 
 use Yii;
-
+use app\modules\gudang\models\BarangKeluar;
 /**
  * This is the model class for table "detile_proses_2".
  *
@@ -51,7 +51,7 @@ class DetileProses2 extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'id_proses_2' => 'Id Proses 2',
-            'id_keluar_barang' => 'Id Keluar Barang',
+            'id_keluar_barang' => 'Nota Barang Keluar',
             'kode_terima' => 'Kode Terima',
             'tanggal' => 'Tanggal',
             'keterangan' => 'Keterangan',

@@ -11,5 +11,7 @@ use yii\helpers\Html;
     <?= $this->render('_form', [
         'model' => $model,
 		'data_proses_1'=>$data_proses_1,
+		'list_barang_keluar'=>$list_barang_keluar,
+        'detile_proses2'=>$detile_proses2,
     ]) ?>
 </div>
