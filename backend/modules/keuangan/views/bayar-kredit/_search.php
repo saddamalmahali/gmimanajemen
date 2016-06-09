@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
 			]); ?>
 			<div class='col-md-10'>
 				<?= $form->field($model, 'kode_pembelian')->textInput([
-					'options'=>['placeholder'=>"Cari Data Menurut Kode Pembelian"],
+					'placeholder'=>"Cari Data Menurut Kode Pembelian",
 				])->label(false) ?>
 			</div>
 			<div class='col-md-2'>

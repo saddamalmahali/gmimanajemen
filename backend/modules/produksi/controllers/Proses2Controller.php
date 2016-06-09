@@ -60,21 +60,28 @@ class Proses2Controller extends Controller
     {   
 		$model = $this->findModel($id);
 		$detile = $model->getDetileProses2s();
+
 		$dataProvider = new ActiveDataProvider([
 			'query'=> $detile,
 		]);
+
+
+
         $request = Yii::$app->request;
+
         if($request->isAjax){
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
                     'title'=> "Proses2 #".$id,
                     'size'=>'large',
                     'content'=>$this->renderAjax('view', [
-                        'model' => $this->findModel($id),
+                        'model' => $model,
 						'detile'=> $dataProvider,
                     ]),
-                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                            Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-primary','role'=>'modal-remote'])
+                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).(
+                        $model->selesai == 0 ? Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-primary','role'=>'modal-remote']) :''
+                        )
+                             
                 ];    
         }else{
             return $this->render('view', [
@@ -171,7 +178,10 @@ class Proses2Controller extends Controller
     public function actionUpdate($id)
     {
         $request = Yii::$app->request;
-        $model = $this->findModel($id);       
+        $model = $this->findModel($id);      
+        $list_barang_keluar = $model->getListBarangKeluar();
+        $detile_proses2 = new DetileProses2(); 
+        $model->tanggal_selesai = "";
 
         if($request->isAjax){
             /*
@@ -183,12 +193,36 @@ class Proses2Controller extends Controller
                     'title'=> "Update Proses2 #".$id,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
+                        'list_barang_keluar'=>$list_barang_keluar,
+                        'detile_proses2'=>$detile_proses2,
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
                 ];         
-            }else if($model->load($request->post()) && $model->save()){
-                return $this->redirect(['index']);    
+            }else if($model->load($request->post()) ){
+                
+                
+                $status_update = $model->status_update;
+
+                if($status_update == 'selesai'){
+                    if($model->save()){
+                        return $this->redirect(['index']);
+                    }
+                }else if($status_update =='tambah-barang'){
+                    $detile_proses2->load($request->post());
+                    if($model->save()){
+                        $detile_proses2->id_proses_2 = $model->id;
+                        $detile_proses2->tanggal = $model->tanggal;
+                        $detile_proses2->keterangan = $model->keterangan;
+                        if($detile_proses2->save()){
+                            return $this->redirect(['index']);
+                        }
+                    }
+                }else{
+                    return $this->redirect(['index']);
+                }
+                
+
             }else{
                  return [
                     'title'=> "Update Proses2 #".$id,

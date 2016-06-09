@@ -29,9 +29,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
     ?>
     <?= GridView::widget([
-
+        'id'=>'crud-datatable',
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'pjax'=>true,
         'toolbar'=> [
             ['content'=>
                 
@@ -39,7 +40,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'value'=>Url::to(['/gudang/barang-keluar/create']),
                         'class' => 'btn btn-primary btn_tambah'
-                    ])
+                    ]).
+                 Html::a('<i class="glyphicon glyphicon-repeat"></i>', [''],
+                    ['data-pjax'=>1, 'class'=>'btn btn-default', 'title'=>'Reset Grid'])
             ],
             '{toggleData}',
         ],
@@ -63,14 +66,24 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php 
 
     $js= <<< JS
+
         $(".btn_tambah").click(function(){
             
-            //console.log('btn_tambah di click');
+            console.log('btn_tambah di click');
             
             $('#modal-barang-keluar').find('.modal-header').html('<center><b><h4>Buat Nota Keluar Barang</h4></b></center>');
             $('#modal-barang-keluar').modal('show')
                 .find('#content-dlg-barang-keluar').load($(this).attr('value'));
             
+        });
+
+        $(document).on('click', '.btn_tambah', function (event) {
+            event.preventDefault();
+
+            // Open modal
+             $('#modal-barang-keluar').find('.modal-header').html('<center><b><h4>Buat Nota Keluar Barang</h4></b></center>');
+            $('#modal-barang-keluar').modal('show')
+                .find('#content-dlg-barang-keluar').load($(this).attr('value'));
         });
 JS;
     $this->registerJs($js);

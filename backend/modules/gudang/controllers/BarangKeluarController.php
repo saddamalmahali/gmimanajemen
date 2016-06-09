@@ -78,6 +78,53 @@ class BarangKeluarController extends Controller
         $listBarang = new DetileBarangKeluar();
         $listBarang = $listBarang->getListBarang();
 
+        $request = Yii::$app->request;
+
+        if($request->isAjax){
+            
+            if ($model->load(Yii::$app->request->post())) {
+                $listModelDetileBarangKeluar = ModelGudang::createMultiple(DetileBarangKeluar::classname());
+                ModelGudang::loadMultiple($listModelDetileBarangKeluar, Yii::$app->request->post());
+
+                $valid = $model->validate();
+                $valid = ModelGudang::validateMultiple($listModelDetileBarangKeluar) && $valid;
+
+                if($valid){
+                    $transaction = \Yii::$app->db->beginTransaction();
+
+                    try{
+                        if($flag = $model->save(false)){
+                            foreach ($listModelDetileBarangKeluar as $detileBarangKeluar) {
+                                $detileBarangKeluar->id_barang_keluar = $model->id_keluar;
+
+                                if(!($flag = $detileBarangKeluar->save(false))){
+                                    $transaction->rollback();
+                                    break;
+                                }
+                            }
+                        }
+
+                        if($flag){
+                            $transaction->commit();
+                            Yii::$app->session->setFlash('success', 'Data Barang Keluar berhasil tersimpan');
+                            return $this->redirect('index');
+                        }
+                    }catch(Exception $e){
+                        $transaction->rollback();
+                        Yii::$app->session->setFlash('warning', 'Data Barang Keluar Gagal tersimpan');
+                    }
+                }
+
+            }
+
+            return $this->renderAjax('create', [
+                'model' => $model,
+                'listModelDetileBarangKeluar'=>empty($listModelDetileBarangKeluar) ? [new DetileBarangKeluar()] : $listModelDetileBarangKeluar,
+                'listKategori'=>$list_kategori,
+                'listBarang'=>$listBarang
+            ]);
+        }
+
         if ($model->load(Yii::$app->request->post())) {
             $listModelDetileBarangKeluar = ModelGudang::createMultiple(DetileBarangKeluar::classname());
             ModelGudang::loadMultiple($listModelDetileBarangKeluar, Yii::$app->request->post());
@@ -120,7 +167,7 @@ class BarangKeluarController extends Controller
                 'listBarang'=>$listBarang
             ]);
         
-    }
+        }
 
     /**
      * Updates an existing BarangKeluar model.

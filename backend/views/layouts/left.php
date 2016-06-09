@@ -34,7 +34,7 @@
                     ['label' => 'Satuan', 'icon' => 'fa fa-gift', 'url' => ['/preferences/satuan']],
                     ['label' => 'Konversi Satuan', 'icon' => 'fa fa-balance-scale', 'url' => ['/preferences/konversi-satuan']],
 
-					['label' => 'Gudang', 'options' => ['class' => 'header']],
+					['label' => 'Keuangan', 'options' => ['class' => 'header']],
 					['label' => 'Pembayaran Kredit', 'icon' => 'fa fa-credit-card', 'url' => ['/keuangan/bayar-kredit']],
 					
 					
@@ -59,7 +59,7 @@
                     ['label' => 'Keluar/Masuk Barang', 'icon' => 'fa fa-exchange', 'url' => '#', 'items' => [
                         ['label' => 'Penerimaan Barang', 'icon' => 'fa fa-download', 'url' => ['/gudang/masuk-barang']],
                         ['label' => 'Keluar Barang Kimia', 'icon' => 'fa fa-external-link', 'url' => ['/gudang/barang-keluar']],
-                        ['label' => 'Keluar Barang (Bahan Mentah)', 'icon' => 'fa fa-external-link', 'url' => ['/gudang/barang-keluar-mentah']],
+                        ['label' => 'Keluar Barang Mentah', 'icon' => 'fa fa-external-link', 'url' => ['/gudang/barang-keluar-mentah']],
                     ]],
                     ['label' => 'Stok Barang', 'icon' => 'fa fa-retweet', 'url' => '#', 'items' => [
                         ['label' => 'Stok Bahan Kimia', 'icon' => 'fa fa-archive', 'url' => ['/gudang/stok-bahan-kimia']],

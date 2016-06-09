@@ -13,6 +13,40 @@ use johnitvn\ajaxcrud\BulkButtonWidget;
 $this->title = 'Daftar Proses 2';
 $this->params['breadcrumbs'][] = $this->title;
 
+$pdfHeader = [
+    'L' => [
+        'content' => $this->title,
+        'font-size' => 8,
+        'color' => '#333333'
+     ],
+    'C' => [
+        'content' => '',
+        'font-size' => 16,
+        'color' => '#333333'
+    ],
+    'R' => [
+        'content' => "Tanggal Cetak " . ': ' . date("D, d-M-Y g:i a T"),
+        'font-size' => 8,
+        'color' => '#333333'
+    ]
+];
+$pdfFooter = [
+    'L' => [
+        'content' => "© GMP Manajemen",
+        'font-size' => 8,
+        'font-style' => 'B',
+        'color' => '#999999'
+    ],
+    'R' => [
+        'content' => '[ {PAGENO} ]',
+        'font-size' => 10,
+        'font-style' => 'B',
+        'font-family' => 'serif',
+        'color' => '#333333'
+    ],
+    'line' => true,
+];
+
 CrudAsset::register($this);
 
 ?>
@@ -24,6 +58,26 @@ CrudAsset::register($this);
             'filterModel' => $searchModel,
             'responsive'=>true,
             'responsiveWrap'=>true,
+            'export'=>[
+                'target'=>'_blank',
+            ],
+            
+            'exportConfig'=>[
+                GridView::PDF=>[
+                    'filename'=>"Proses2 ".$this->title,
+                    'config' => [
+                        'methods' => [
+                            'SetHeader' => [
+                                ['odd' => $pdfHeader, 'even' => $pdfHeader]
+                            ],
+                            'SetFooter' => [
+                                ['odd' => $pdfFooter, 'even' => $pdfFooter]
+                            ],
+                        ],
+                    ]
+                ]
+                    
+            ],
             'pjax'=>true,
             'columns' => require(__DIR__.'/_columns.php'),
             'toolbar'=> [

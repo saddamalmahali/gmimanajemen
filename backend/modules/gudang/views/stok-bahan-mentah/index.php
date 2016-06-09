@@ -2,6 +2,8 @@
 use yii\helpers\Html;
 //use yii\grid\GridView;
 use kartik\grid\GridView;	
+
+$this->title = "Daftar Stok Bahan Mentah";
 ?>
 
 <div class='stok-bahan-kimia-index'>
@@ -11,16 +13,44 @@ use kartik\grid\GridView;
 			'hover'=>true,
 	        'panel'=>[
 	            'type'=>GridView::TYPE_PRIMARY,
-	            'heading'=>'<center><b>Daftar Stok Barang</b></center>',
+	            'heading'=>'<center><b>'.$this->title.'</b></center>',
 	        ],
 	        'columns'=>[
 	        	['class' => 'yii\grid\SerialColumn'],
 	        	//'id_masuk'
-	        	'kode_pembelian',
-	        	'kode_masuk',
+	        	[
+	        		'attribute'=>'kode_pembelian',
+	        		'options'=>[
+	        			'width'=>'10%',
+
+	        		],
+	        		'hAlign'=>'center',
+	        	],
+	        	[
+	        		'attribute'=>'kode_masuk',
+	        		'options'=>[
+	        			'width'=>'10%',
+
+	        		],
+	        		'hAlign'=>'center',
+	        	],
 	        	'nama',
-	        	'kuantitas',
-	        	'sisa',
+	        	[
+	        		'attribute'=>'kuantitas',
+	        		'options'=>[
+	        			'width'=>'10%',
+
+	        		],
+	        		'hAlign'=>'center',
+	        	],
+	        	[
+	        		'attribute'=>'sisa',
+	        		'options'=>[
+	        			'width'=>'10%',
+
+	        		],
+	        		'hAlign'=>'center',
+	        	],
 	        ]
 		])
 

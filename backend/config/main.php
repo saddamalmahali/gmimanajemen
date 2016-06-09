@@ -32,6 +32,14 @@ return [
             // 'downloadAction' => 'gridview/export/download',
             // 'i18n' => []
         ],
+
+        'coba' => [
+            'class' => 'app\modules\coba\Module',
+        ],
+        
+        'services' => [
+            'class' => 'app\modules\services\Module',
+        ],
     ],
     'components' => [
         'user' => [

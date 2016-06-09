@@ -11,6 +11,7 @@ use yii\data\ActiveDataProvider;
  
     <?= DetailView::widget([
         'model' => $model,
+        
 		'condensed'=>true,
                 'hover'=>true,
                 'mode'=>DetailView::MODE_VIEW,
@@ -50,7 +51,7 @@ use yii\data\ActiveDataProvider;
 			[
 				'columns'=>[
 					[
-						'attribute'=>'keterangan',
+						'attribute'=>'tanggal_selesai',
 						'valueColOptions'=>['style'=>'width:40%']
 					],
 					[
@@ -88,6 +89,7 @@ use yii\data\ActiveDataProvider;
 							   $barang_keluar = $model->getIdKeluarBarang()->one();
 							   $sql = $barang_keluar->getDetileBarangKeluars();
 							   
+
 
 								$dataProvider = new ActiveDataProvider([
 									'query' => $sql,

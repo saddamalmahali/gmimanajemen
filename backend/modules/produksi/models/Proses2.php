@@ -26,6 +26,9 @@ class Proses2 extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+
+    public  $status_update;
+
     public static function tableName()
     {
         return 'proses_2';
@@ -38,9 +41,11 @@ class Proses2 extends \yii\db\ActiveRecord
     {
         return [
             [['id_proses_1', 'kode_proses', 'tanggal'], 'required'],
-            [['id_proses_1', 'selesai'], 'integer'],
-            [['tanggal'], 'safe'],
+            [['id_proses_1', 'selesai', ], 'integer'],
+            [['kuantitas'], 'double'],
+            [['tanggal', 'tanggal_selesai'], 'safe'],
             [['kode_proses'], 'string', 'max' => 10],
+            [['status_update'], 'string', 'max' => 50],
             [['keterangan'], 'string', 'max' => 1024],
             [['id_proses_1'], 'unique'],
             [['id_proses_1'], 'exist', 'skipOnError' => true, 'targetClass' => Proses1::className(), 'targetAttribute' => ['id_proses_1' => 'id']],
@@ -58,6 +63,7 @@ class Proses2 extends \yii\db\ActiveRecord
             'kode_proses' => 'Kode Proses',
             'tanggal' => 'Tanggal',
             'keterangan' => 'Keterangan',
+            'tanggal_selesai'=> "Tanggal Selesai",
             'selesai' => 'Selesai',
         ];
     }
@@ -82,16 +88,17 @@ class Proses2 extends \yii\db\ActiveRecord
         $query = new Query();
         $query->select('id_barang_keluar')
             ->from('detile_proses_1');
+
         $pembelian = $query->all();
 
         $query2 = new Query();
-        $query2->select('id_keluar_barang')
-            ->from('detile_proses_2');
+        $query2->select('id_keluar, kode_keluar')
+            ->from('barang_keluar')
+            ->leftJoin('detile_proses_1', 'id_barang_keluar = id_keluar')
+            ->leftJoin('detile_proses_2', 'id_keluar_barang = id_keluar')
+            ->where(['id_proses_1'=> null, 'id_proses_2'=>null]);
         
-        $barangKeluar = BarangKeluar::find()->asArray()
-                                ->where(['not in', 'id_keluar', $query])
-                                ->andWhere(['not in', 'id_keluar', $query2])
-                                ->all();
+        $barangKeluar = $query2->all();
         
         return ArrayHelper::map($barangKeluar, 'id_keluar', 'kode_keluar');
     }
