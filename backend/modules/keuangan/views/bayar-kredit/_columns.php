@@ -32,7 +32,10 @@ return [
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'jumlah_bayar',
-		'hAlign'=>'center'
+		'hAlign'=>'center',
+        'value'=>function($model){
+            return number_format($model->jumlah_bayar);
+        }
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
